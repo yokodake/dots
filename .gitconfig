@@ -1,0 +1,10 @@
+# This is Git's per-user configuration file.
+[user]
+name = ngyj
+email = ngyj@cinnabar.fr
+
+[alias]
+change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch -f --env-filter \"if [ \\\"$`echo $VAR`\\\" = '$OLD' ]; then export $VAR='$NEW'; fi\" $@; }; f "
+lg="log --graph --color --pretty=\"format:%h %an %Cblue%ae%Creset %Cgreen%s%Creset\""
+ci="commit"
+br="branch"

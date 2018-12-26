@@ -1,0 +1,67 @@
+#define longnormal -lucy-tewi-normal-r-normal--11-90-75-75-p-58-iso10646-1, \
+                   -lucy-tewi2a-normal-r-normal--11-90-75-75-p-58-iso10646-1
+
+
+!! http://dotshare.it/dots/1072/
+urxvt.imLocale: en_US.UTF-8
+urxvt.colorBD: #857672
+urxvt.colorIT: #bbbbbb
+urxvt.cursorBlink: false
+urxvt.cursorColor: #ff8939
+urxvt.cursorColor2: #121212
+
+*foreground: #ECE8CF
+*background: #2D2D2D
+!!black
+*color0:     #393939
+*color8:     #474747
+!!red
+*color1:     #EE9379
+*color9:     #FF8D80
+!!green
+*color2:     #E2FFC7
+*color10:    #DBFFB3
+!!yellow
+*color3:     #FFFFB9
+*color11:    #FFBE64
+!!blue
+*color4:     #EDE7B4
+*color12:    #E15848
+!!magenta
+*color5:     #E2BEB5
+*color13:    #94C7B5
+!!cyan
+*color6:     #6EB49D
+*color14:    #A2C3CC
+!!white
+*color15:     #dddddd
+*color7:      #bbbbbb
+
+!! fonts
+!(https://wiki.archlinux.org/index.php/font_configuration#Applications_without_fontconfig_supporta)
+Xft.antialias:1
+Xft.dpi:96
+Xft.hinting:full
+Xft.hintstyle:hintslight
+Xft.lcdfilter:lcddefault
+
+dzen2.font: xft:LiberationMono-Regular:size=8
+urxvt.boldFont:xft:Fira Code:pixelsize=13:style=bold
+urxvt.font: xft:Fira Code:pixelsize=13
+
+
+!! urxvt
+urxvt.cursorUnderline:  false
+urxvt.internalBorder:   10
+urxvt.letterSpace:      0
+urxvt.saveLines:        16000
+urxvt.scrollBar:        false
+urxvt.scrollStyle:      buffer
+urxvt.scrollTtyKeypress:true
+urxvt.scrollWithBuffer: true
+
+!! urls
+urxvt.matcher.button:   C1
+urxvt.perl-ext-common:  default,matcher
+urxvt.url-launcher:     firefox
+
