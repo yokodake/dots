@@ -101,7 +101,7 @@ main = do
        , modMask            = modm
        , mouseBindings      = newMouse
        }
-       `removeKeysP` 
+       `removeKeysP`
        [ "M-S-p" -- Unused gmrun binding
        , "M-S-c" -- Unused close window binding
        , "M-S-<Return>"
@@ -191,6 +191,17 @@ main = do
        -- Take a screenshot (whole window)
        , ("<Print>", spawn "scrot")
        ]
+       `additionalKeysP`
+       [(otherMasks ++ "M-" ++ [key], screenWorkspace scr >>= flip whenJust (windows . action))
+         | (key, scr) <- zip "wer" [2,0,1]
+         , (otherMasks, action) <- [ ("", W.view)
+                                   , ("S-", W.shift)]
+       ]
+       --  [ (otherMasks ++ "M-" ++ key, action tag)
+       --  | (tag, key) <- zip myWorkspaces (map show [1..9])
+       --  , (otherMasks, action) <- [("", windows . W.view) -- replace W.greedyView
+       --                               , ("S-", windows . W.shift)]
+       --  ]
 
 myLayout =  tiled ||| mtiled ||| full ||| threecol ||| grid
   where
@@ -229,7 +240,7 @@ myManageHookFloat = composeAll
 
 myLogHook h = dynamicLogWithPP $ wsPP { ppOutput = hPutStrLn h }
 
--- xmobar 
+-- xmobar
 myWsBar = "xmobar $HOME/.xmonad/xmobarrc"
 
 wsPP = xmobarPP { ppOrder           = \(ws:l:t:_)  -> [ws,l,t]

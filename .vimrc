@@ -7,7 +7,7 @@ syntax on
 set termencoding=utf-8 encoding=utf8
 set wmnu wim=list:longest,full wig=*.o,*~,*.pyc,*.tmp title titlestring=%t:%l%r%m
 set titlelen=24 undofile udir=~/.vim/undo,/tmp ul=1024 ur=1024 ss=5 ls=2 nowrap
-set lcs=extends:> tw=80 nu nuw=1 sts=4 shiftwidth=4 ts=4 isk+=- si sta ai hid
+set lcs=extends:> tw=80 nu nuw=1 sts=2 shiftwidth=2 ts=2 isk+=- si sta ai hid
 set sc cc=80 spr sb nobk ignorecase hls magic noswapfile et tf lz
 set statusline=%{Github(branch,repository)}%L:%l%=%m[%{Filesize()}]
 

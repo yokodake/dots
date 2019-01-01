@@ -41,7 +41,6 @@ home /dev/mapper/vg0-home /luks-keys/home luks
 
   # Select internationalisation properties.
   i18n = {
-  #   consoleFont = "Lat2-Terminus16";
     consoleKeyMap = "us";
     defaultLocale = "en_US.UTF-8";
   };
@@ -89,6 +88,7 @@ home /dev/mapper/vg0-home /luks-keys/home luks
     enableFontDir = true;
     enableGhostscriptFonts = true;
     fonts = with pkgs; [
+      tewi-font
       corefonts
       dejavu_fonts
       fira-code
@@ -98,13 +98,24 @@ home /dev/mapper/vg0-home /luks-keys/home luks
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.extraUsers.ngyj = {
-    createHome = true;
-    home = "/home/ngyj";
-    description = "namigyj";
-    extraGroups = [ "wheel" "audio" "video" "networkmanager" "disk" ];
-    isNormalUser = true;
-    uid = 1000;
+  users.extraGroups.aigis.gid = 1001;
+  users.extraUsers = {
+    ngyj = {
+      createHome = true;
+      home = "/home/ngyj";
+      description = "namigyj";
+      extraGroups = [ "wheel" "audio" "video" "networkmanager" "disk" "aigis"];
+      isNormalUser = true;
+      uid = 1000;
+    };
+
+    aigis = {
+      createHome = true;
+      home = "/home/aigis";
+      description = "Aigis";
+      group = "aigis";
+      uid = 1001;
+    };
   };
 
   nixpkgs.config = {
@@ -113,23 +124,27 @@ home /dev/mapper/vg0-home /luks-keys/home luks
   };
 
   nix = {
-      package = pkgs.nixUnstable;
-      trustedBinaryCaches = [ "http://cache.nixos.org" ];
-      binaryCaches = [ "http://cache.nixos.org" ];
-      maxJobs = pkgs.stdenv.lib.mkForce 4;
-  }
+    package = pkgs.nixUnstable;
+    trustedBinaryCaches = [ "http://cache.nixos.org" ];
+    binaryCaches = [ "http://cache.nixos.org" ];
+    maxJobs = pkgs.stdenv.lib.mkForce 4;
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    #nitrogen
+    binutils
+    cabal2nix
     emacs
     firefox-devedition-bin
     git
+    haskellPackages.hlint
+    haskellPackages.hpack
     haskellPackages.xmobar
     htop
     mpv
     networkmanager
+    nitrogen
     nix-bash-completions
     p7zip
     pavucontrol

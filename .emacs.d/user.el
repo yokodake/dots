@@ -1,5 +1,6 @@
 ;; pretty
 (set-default-font "Fira Code")
+(global-unset-key " ")
 
 (require 'sublimity)
 (require 'sublimity-scroll)
@@ -15,10 +16,18 @@
         ;; ("->"     . 8594) ;; →
         ;; ("=>"     . 8658) ;; ⇒
         )))
-
 (add-hook 'racket-mode-hook 'pretty-lambda-fun)
 (add-hook 'elisp-mode-hook 'pretty-lambda-fun)
 (add-hook 'scheme-mode-hook 'pretty-lambda-fun)
+
+(defun buffer-go ()
+  (with-current-buffer (get-buffer "*scratch*")
+    (end-of-buffer)
+    (delete-region 1 (point))
+    (insert "\n\n\n\n\n"))
+  t)
+(when window-system
+  (setq initial-buffer-choice 'buffer-go))
 
 ;; C
 (defun my-flycheck-c-setup ()
@@ -34,3 +43,20 @@
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
+
+;; haskell
+(use-package dante
+  :ensure t
+  :after haskell-mode
+  :commands 'dante-mode
+  :init
+  (add-hook 'haskell-mode-hook 'dante-mode)
+  (add-hook 'haskell-mode-hook 'flycheck-mode))
+(setq flymake-no-changes-timeout nil)
+(setq flymake-start-syntax-check-on-newline nil)
+(setq flycheck-check-syntax-automatically '(save mode-enabled))
+
+(load "/home/ngyj/.emacs.d/modules/hs-lint.el")
+(require 'hs-lint)
+(add-hook 'dante-mode-hook
+          '(lambda () (flycheck-add-next-checker 'haskell-dante '(warning . haskell-hlint))))
