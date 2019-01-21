@@ -136,18 +136,22 @@ home /dev/mapper/vg0-home /luks-keys/home luks
     binutils
     cabal2nix
     emacs
+    feh
     firefox-devedition-bin
     git
     haskellPackages.hlint
     haskellPackages.hpack
     haskellPackages.xmobar
     htop
+    jpegoptim
     mpv
     networkmanager
     nitrogen
     nix-bash-completions
+    optipng
     p7zip
     pavucontrol
+    racket
     rxvt_unicode
     scrot
     unzip

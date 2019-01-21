@@ -29,6 +29,11 @@
       fsType = "xfs";
     };
 
+  fileSystems."/home/aigis" =
+    { device = "dev/disk/by-label/aigis";
+      fsType = "xfs";
+    };
+
 # boot.initrd.luks.devices."home".device = "/dev/disk/by-uuid/cfead87d-8872-43a5-ac1d-a6b243023815";
 
   swapDevices =
