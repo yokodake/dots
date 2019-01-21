@@ -1,7 +1,7 @@
 -- vim: ft=haskell
 Config { font = "xft:Fira Code:size=10" --font = "xft:SauceCodePro Nerd Font Mono:size=10:antialias=true"
-       , bgColor = "#101010"
-       , fgColor = "#8FBCBB"
+       , bgColor = "#2D2D2D"
+       , fgColor = "#ECE8CF"
        , position = Top
        --, position = TopSize C 100 35 -- use this if only using one monitor
        --, position = Static { xpos = 0 , ypos = 0, width = 1920, height = 24 } --manually position bar to display on left monitor
@@ -9,13 +9,13 @@ Config { font = "xft:Fira Code:size=10" --font = "xft:SauceCodePro Nerd Font Mon
        , allDesktops = True
        , overrideRedirect = False
        , border = BottomBM 0
-       , borderColor = "#4e4e4e"
+       , borderColor = "#3e3e3e"
        , commands = [ Run Network "enp3s0" [ "-t"       , "d:<rx> u:<tx>"
                                            , "-L"       , "100"
                                            , "-H"       , "700"
                                            , "-m"       , "4"
                                            , "--normal" , "#b0bdbd"
-                                           , "--high"   , "#c76b68"
+                                           , "--high"   , "#ff8d80"
                                            ] 20
 
                     , Run CoreTemp         [ "-t"       , "c:<core0>.<core1>.<core2>.<core3>"
@@ -23,7 +23,7 @@ Config { font = "xft:Fira Code:size=10" --font = "xft:SauceCodePro Nerd Font Mon
                                            , "-H"       , "75"
                                            , "-m"       , "2"
                                            , "--normal" , "#b0bdbd"
-                                           , "--high"   , "#c76b68"
+                                           , "--high"   , "#ff8d80"
                                            ] 10
 
                     , Run Memory           [ "-t"       , "m:<usedratio>%"
@@ -31,7 +31,7 @@ Config { font = "xft:Fira Code:size=10" --font = "xft:SauceCodePro Nerd Font Mon
                                            , "-H"       , "80"
                                            , "-m"       , "2"
                                            , "--normal" , "#b0bdbd"
-                                           , "--high"   , "#c76b68"
+                                           , "--high"   , "#ff8d80"
                                            ] 20
 
                     , Run DiskU            [ ("/"       , "r:<usedp>%")
@@ -42,7 +42,7 @@ Config { font = "xft:Fira Code:size=10" --font = "xft:SauceCodePro Nerd Font Mon
                                            , "-H"       , "85"
                                            , "-m"       , "2"
                                            , "--normal" , "#b0bdbd"
-                                           , "--high"   , "#c76b68"
+                                           , "--high"   , "#ff8d80"
                                            ] 1200
 
                     , Run MPD              [ "-t"       , "<title> - <artist> [<statei>]"
@@ -55,6 +55,6 @@ Config { font = "xft:Fira Code:size=10" --font = "xft:SauceCodePro Nerd Font Mon
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %StdinReader% }{%mpd% / %disku% / %coretemp% / %memory% / %enp3s0% / <fc=#81A1C1>%date%</fc>  "
+       , template = " %StdinReader% }{%mpd% / %disku% / %coretemp% / %memory% / %enp3s0% / <fc=#ede7b4>%date%</fc>  "
        }
 

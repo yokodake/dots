@@ -51,14 +51,14 @@ myWorkspaces = map show [1..9]
 modm = mod4Mask
 
 -- Arc Color Setting
-colorfg         = "#a0a0a0"
-colorDarkbg     = "#101010"
-colorNormalbg   = "#202020"
+colorfg         = "#ece8cf"
+colorDarkbg     = "#2d2d2d"
+colorNormalbg   = "#2d2d2d"
 
-colorBlue       = "#D8DEE9"
-colorGreen      = "#5E81AC"
-colorRed        = "#BF616A"
-colorWhite      = "#efefef"
+colorBlue       = "#a2c3cc"
+colorGreen      = "#dbffb3"
+colorRed        = "#ff8d80"
+colorWhite      = "#ede7b4"
 
 -- Border width
 borderwidth = 0
