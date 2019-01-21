@@ -1,6 +1,6 @@
 ;; pretty
 (set-default-font "Fira Code")
-(global-unset-key " ")
+(global-set-key (kbd " ") (lookup-key global-map (kbd " ")))
 
 (require 'sublimity)
 (require 'sublimity-scroll)
@@ -60,3 +60,11 @@
 (require 'hs-lint)
 (add-hook 'dante-mode-hook
           '(lambda () (flycheck-add-next-checker 'haskell-dante '(warning . haskell-hlint))))
+
+(defun dired-open-file ()
+  "In dired, open the file named on this line."
+  (interactive)
+  (let* ((file (dired-get-filename nil t)))
+    (call-process "xdg-open" nil 0 nil file)))
+
+(define-key dired-mode-map (kbd "C-c o") 'dired-open-file)
