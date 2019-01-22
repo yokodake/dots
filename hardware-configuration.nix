@@ -30,7 +30,7 @@
     };
 
   fileSystems."/home/aigis" =
-    { device = "dev/disk/by-label/aigis";
+    { device = "dev/disk/by-label/neco";
       fsType = "xfs";
     };
 
