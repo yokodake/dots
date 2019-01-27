@@ -1,0 +1,104 @@
+## aliases
+    alias ag="alias | grep"
+## ls
+    alias l="ls -1 --group-directories-first --color=auto"
+    alias ls="ls --group-directories-first --color=auto"
+    alias ll='ls -lshG --color=auto'
+    alias la="ls -aslh --color=auto"
+    alias lg="ls | grep"
+
+## verbose
+    alias rm="rm -v"
+    alias cp="cp -v"
+
+# Have sudo understand aliases.
+    alias sudo="sudo "
+
+## system {{{
+    alias cd..='cd ..'
+    alias u2='cd ../../'
+    alias u3='cd ../../../'
+    alias u4='cd ../../../../'
+
+    alias mnt='mount'
+    alias umnt='umount'
+
+    alias mtop='ps --no-header -eo pmem,size,vsize,comm | sort -nr | sed 10q'
+    alias ctop='ps --no-header -eo pcpu,comm | sort -nr | sed 10a'
+    alias batp='echo "upower -i \$(upower -e | grep BAT) | grep -E \"percentage|to\ full|state\"";\
+     upower -i $(upower -e | grep BAT) | grep -E "percentage|to\ full|state"'
+
+    alias x='startx'
+# }}}
+## programming  {{{
+    alias mk='make'
+    alias mkc='make clean'
+    alias mkr='make run'
+
+    alias cc0='clang -Wall -Wextra'
+    alias cc03='clang -03 -Wall -Wextra'
+# }}}
+## editors {{{
+    alias emt='emacsclient -a "" -t'
+# }}}
+## xbps {{{
+    alias xbps-query='sudo xbps-query'
+# }}}
+## grep {{{
+    alias grep='grep --color=auto'
+    alias egrep='egrep --color=auto'
+    alias fgrep='fgrep --color=auto'
+# }}}
+## archives {{{
+    alias uz='unzip'
+# }}}
+## Git {{{
+    alias ga='git add'
+    alias gb='git branch'
+    alias gci='git commit'
+    alias gco='git checkout'
+    alias gcob='git checkout -b'
+    alias gd='git diff'
+    alias gdmom='git diff master origin/master'
+    alias gfu='git fetch upstream'
+    alias gmum='git merge upstream/master'
+    alias gpull='git pull'
+    alias gp='git push'
+    alias gpom='git push origin master'
+    alias gst='git status'
+    alias glo='git log --oneline --decorate --graph --all'
+#}}}
+## Systemd {{{
+    alias sctl='systemctl'
+    alias lctl='localectl'
+# }}}
+## Modified commands  {{{
+    alias df='df -h'
+    alias du='du -c -h'
+    alias du1='du --max-depth=1'
+    alias mkdir='mkdir -p -v'
+    alias ping='ping -c 5'
+    alias da='date "+%a, %d %B %Y [%T]"'
+    alias openports='ss --all --numeric --processes --ipv4 --ipv6'
+    alias mpvtv='mpv --audio-device alsa/hdmi:CARD=PCH,DEV=1 '
+    alias tx="tmux"
+    alias fehslide="feh -.zZD5 --keep-zoom-vp -Bblack -^feh"
+# }}}
+## privileged access {{{
+    alias scat='sudo cat'
+    alias svim='sudo vim'
+    alias root='sudo su'
+# }}}
+## transmission {{{
+    alias t-start='sudo sv start transmission-daemon'
+    alias t-stop='sudo sv stop transmission-daemon'
+    alias t-reload='sudo sv reload transmission-daemon'
+    alias t-list='transmission-remote -n "aigis:netsandwichdudelhaize" -l'
+    alias t-basicstats='transmission-remote -n "aigis:netsandwichdudelhaize" -st'
+    alias t-fullstats='transmission-remote -n "aigis:netsandwichdudelhaize" -si'
+# }}}
+## misc. {{{
+    alias setusint='setxkbmap -layout us -variant intl'
+    alias setus='setxkbmap -layout us'
+    alias setdvp='setxkbmap -layout us -variant dvp'
+# }}}

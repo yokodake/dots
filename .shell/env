@@ -1,0 +1,35 @@
+## Programming envs {{{
+# cabal PATH
+export PATH=$PATH:~/.cabal/bin
+
+# cargo
+export PATH="$PATH:$HOME/.cargo/bin"
+
+# opam
+eval `opam config env`
+
+# rakudo
+export PATH=$PATH:~/build/rakudo/rakudo-star-2018.04/install/bin/:~/build/rakudo/rakudo-star-2018.04/install/share/perl6/site/bin
+# }}}
+
+## Software envs {{{
+export TERMINAL='urxvt'
+export BROWSER='firefox-devedition'
+export EDITOR='vim'
+export LANG='en_US.UTF-8'
+# }}}
+
+# Functions
+address() {
+    case "$1" in
+        pub) curl "icanhazip.com" ;;
+        priv) ip addr show | awk '/inet.*global/{print $2}' ;;
+    esac
+}
+
+ns() {
+  nix-shell -p $1 --run "$@"
+}
+
+# Export the user created function names. -- t. mvdw
+export BASH_FUNCTION_NAMES=$(declare -F | awk '{if (substr($3, 0, 1) != "_") print $3}')
