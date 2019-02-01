@@ -1,48 +1,39 @@
--- last update: december 2018 by ngyj
+-- last update: January 2018 by ngyj (https://github.com/ngyj)
 -- written by Shotaro Fujimoto (https://github.com/ssh0)
 -- modified and repaired by Ogis (https://github.com/Minda1975)
 
 import qualified Data.Map as M
-import Control.Monad (liftM2)          -- myManageHookShift
-import Data.Monoid
-import System.IO                       -- for xmobar
+import           System.IO (hPutStrLn)
 
-import XMonad
-import qualified XMonad.StackSet as W  -- myManageHookShift
+import           XMonad
+import qualified XMonad.StackSet as W -- myManageHookShift
 
-import XMonad.Actions.CopyWindow
-import XMonad.Actions.CycleWS
-import qualified XMonad.Actions.FlexibleResize as Flex -- flexible resize
-import XMonad.Actions.FloatKeys
-import XMonad.Actions.UpdatePointer
-import XMonad.Actions.WindowGo
-import XMonad.Actions.DwmPromote (dwmpromote)
+import           XMonad.Actions.CopyWindow (kill1)
+import           XMonad.Actions.CycleWS (nextWS, prevWS, shiftToNext, shiftToPrev, toggleWS, nextScreen)
+import qualified XMonad.Actions.FlexibleResize as Flex (mouseResizeWindow)
+import           XMonad.Actions.FloatKeys (keysMoveWindow, keysResizeWindow)
+import           XMonad.Actions.UpdatePointer (updatePointer)
+import           XMonad.Actions.DwmPromote (dwmpromote)
 
-import XMonad.Hooks.DynamicLog         -- for xmobar
-import XMonad.Hooks.EwmhDesktops
-import XMonad.Hooks.ManageDocks        -- avoid xmobar area
-import XMonad.Hooks.ManageHelpers
+import           XMonad.Hooks.DynamicLog (PP(..), dynamicLogWithPP, xmobarPP, xmobarColor)
+import           XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
+import           XMonad.Hooks.ManageDocks (manageDocks, docksEventHook, avoidStruts)
+import           XMonad.Hooks.ManageHelpers (Side(..), doCenterFloat, doSideFloat,
+                                             doFullFloat, isDialog, isFullscreen)
 
-import XMonad.Layout
-import XMonad.Layout.DragPane          -- see only two window
-import XMonad.Layout.Gaps
-import XMonad.Layout.LayoutScreens
-import XMonad.Layout.NoBorders         -- In Full mode, border is no use
-import XMonad.Layout.PerWorkspace      -- Configure layouts on a per-workspace
-import XMonad.Layout.ResizableTile     -- Resizable Horizontal border
-import XMonad.Layout.Simplest
-import XMonad.Layout.SimplestFloat
-import XMonad.Layout.Spacing           -- this makes smart space around windows
-import XMonad.Layout.ToggleLayouts     -- Full window at any time
-import XMonad.Layout.TwoPane
-import XMonad.Layout.Renamed
-import XMonad.Layout.ThreeColumns
-import XMonad.Layout.Grid
+import           XMonad.Layout.LayoutScreens (layoutScreens)
+import           XMonad.Layout.NoBorders (noBorders, smartBorders)
+import           XMonad.Layout.Renamed (Rename(..), renamed)
+import           XMonad.Layout.ResizableTile (MirrorResize(..), ResizableTall(..))
+import           XMonad.Layout.Spacing (spacing)
+import           XMonad.Layout.ThreeColumns (ThreeCol(..))
+import           XMonad.Layout.ToggleLayouts (ToggleLayout(..), toggleLayouts)
+import           XMonad.Layout.TwoPane (TwoPane(..))
 
-import XMonad.Prompt
-import XMonad.Prompt.Window (windowPromptGoto, windowPromptBring)
-import XMonad.Util.EZConfig (removeKeysP, additionalKeysP)
-import XMonad.Util.Run (spawnPipe)      -- spawnPipe, hPutStrLn
+import           XMonad.Prompt (XPConfig(..), XPPosition(..))
+import           XMonad.Prompt.Window (windowPromptGoto, windowPromptBring)
+import           XMonad.Util.EZConfig (removeKeysP, additionalKeysP)
+import           XMonad.Util.Run (spawnPipe)      -- spawnPipe, hPutStrLn
 
 import qualified Graphics.X11.ExtraTypes.XF86 as XF86
 
@@ -64,9 +55,8 @@ colorWhite      = "#ede7b4"
 borderwidth = 0
 
 -- Border color
-mynormalBorderColor  = "#333333"
---myfocusedBorderColor = "#585858"
-myfocusedBorderColor = "#cca8c9"
+normalBC  = "#333333"
+focusedBC = "#cca8c9"
 
 -- Float window control width
 moveWD = borderwidth
@@ -79,7 +69,6 @@ gwD = 0
 gwL = 42
 gwR = 42
 
-
 main :: IO ()
 main = do
     wsbar <- spawnPipe myWsBar
@@ -87,14 +76,12 @@ main = do
        { borderWidth        = borderwidth
        , terminal           = "urxvt"
        , focusFollowsMouse  = True
-       , normalBorderColor  = mynormalBorderColor
-       , focusedBorderColor = myfocusedBorderColor
-       , manageHook         = myManageHookShift <+>
-                              myManageHookFloat <+>
-                              manageDocks
-       , layoutHook         = avoidStruts $ (toggleLayouts (noBorders Full)
-                                            -- $ onWorkspace "3" simplestFloat
-                                            $ myLayout)
+       , normalBorderColor  = normalBC
+       , focusedBorderColor = focusedBC
+       , manageHook         = myManageHookFloat <+> manageDocks
+       , layoutHook         = avoidStruts
+                              . toggleLayouts (noBorders Full)
+                              $ myLayout
        , logHook = myLogHook wsbar >> updatePointer (0.5,0.5) (0,0)
        , handleEventHook    = fullscreenEventHook <+> docksEventHook
        , workspaces         = myWorkspaces
@@ -117,7 +104,7 @@ main = do
        , ("M-S-c"    , kill1)
        -- Toggle layout (Fullscreen mode)
        , ("M-f"    , sendMessage ToggleLayout)
-       --, ("M-S-f"  , withFocused (keysMoveWindow (-borderwidth,-borderwidth)))
+       , ("M-S-f"  , withFocused (keysMoveWindow (-borderwidth,-borderwidth)))
        -- toggle layout (simplest float)
        , ("M-u"    , sendMessage (Toggle "Simplest"))
        -- Move the focused window
@@ -141,9 +128,6 @@ main = do
        , ("M-S-<L>", shiftToPrev)
        , ("M-S-l"  , shiftToNext)
        , ("M-S-h"  , shiftToPrev)
-       -- CopyWindow
-       , ("M-v"    , windows copyToAll)
-       , ("M-S-v"  , killAllOtherCopies)
        -- Move the focus down / up
        , ("M-<D>"  , windows W.focusDown)
        , ("M-<U>"  , windows W.focusUp)
@@ -156,10 +140,6 @@ main = do
        , ("M-S-<U>"  , windows W.swapUp)
        -- Shift the focused window to the master window
        , ("M-S-m"  , windows W.shiftMaster)
-       -- Search a window and focus into the window
-       , ("M-g"    , windowPromptGoto myXPConfig)
-       -- Search a window and bring to the current workspace
-       , ("M-b"    , windowPromptBring myXPConfig)
        -- Move the focus to next screen (multi screen)
        , ("M-<Tab>", nextScreen)
        -- Now we have more than one screen by dividing a single screen
@@ -167,29 +147,20 @@ main = do
        , ("M-C-S-<Space>", rescreen)
        ]
        `additionalKeysP` -- custom commands
-       [ ("M-<Return>", dwmpromote) -- Zoomswap dwm like
+       [ ("M-S-<Return>", spawn "urxvt")
+       , ("M-S-f", spawn "file_manager")
+       , ("M-S-n", spawn "firefox-devedition")
        , ("M-w", spawn "spotify")
-       , ("M-S-<Return>", spawn "urxvt")
-       , ("M-S-f", spawn "pcmanfm")
-       , ("M-S-n", spawn "firefox")
-       , ("M-p", spawn "dmenu_run")
+       , ("M-d", spawn "dmenu_run")
        , ("M-S-l", spawn "slock")
+       , ("M-<Return>", dwmpromote) -- Zoomswap dwm like
        , ("M-<Tab>", toggleWS)
-       -- Play / Pause media keys
-       --, ("<XF86AudioPlay>"  , spawn "ncmpcpp toggle")
-       --, ("<XF86HomePage>"   , spawn "ncmpcpp toggle")
-       --, ("S-<F6>"           , spawn "ncmpcpp toggle")
-       --, ("S-<XF86AudioPlay>", spawn "streamradio pause")
-       --, ("S-<XF86HomePage>" , spawn "streamradio pause")
-       -- Volume setting media keys
-       --, ("<XF86AudioRaiseVolume>", spawn "sound_volume_change_wrapper.sh +")
-       --, ("<XF86AudioLowerVolume>", spawn "sound_volume_change_wrapper.sh -")
-       --, ("<XF86AudioMute>"       , spawn "sound_volume_change_wrapper.sh m")
-        -- Brightness Keys
-       --, ("<XF86MonBrightnessUp>"  , spawn "xbacklight + 5 -time 100 -steps 1")
-       --, ("<XF86MonBrightnessDown>", spawn "xbacklight - 5 -time 100 -steps 1")
-       -- Take a screenshot (whole window)
-       , ("<Print>", spawn "scrot")
+       -- Play / Pause media keys : "<XF86AudioPlay>"  "<XF86HomePage>"
+       , ("<XF86AudioRaiseVolume>", spawn "volume_wrapper +")
+       , ("<XF86AudioLowerVolume>", spawn "volume_wrapper -")
+       , ("<XF86AudioMute>"       , spawn "volume_wrapper m")
+       , ("<XF86MonBrightnessUp>"  , spawn "xbacklight + 5 -time 100 -steps 1")
+       , ("<XF86MonBrightnessDown>", spawn "xbacklight - 5 -time 100 -steps 1")
        ]
        `additionalKeysP`
        [(otherMasks ++ "M-" ++ [key], screenWorkspace scr >>= flip whenJust (windows . action))
@@ -197,13 +168,8 @@ main = do
          , (otherMasks, action) <- [ ("", W.view)
                                    , ("S-", W.shift)]
        ]
-       --  [ (otherMasks ++ "M-" ++ key, action tag)
-       --  | (tag, key) <- zip myWorkspaces (map show [1..9])
-       --  , (otherMasks, action) <- [("", windows . W.view) -- replace W.greedyView
-       --                               , ("S-", windows . W.shift)]
-       --  ]
 
-myLayout =  tiled ||| mtiled ||| full ||| threecol ||| grid
+myLayout =  tiled ||| mtiled ||| full ||| threecol
   where
     nmaster  = 1     -- Default number of windows in master pane
     delta    = 2/100 -- Percentage of the screen to increment when resizing
@@ -213,34 +179,22 @@ myLayout =  tiled ||| mtiled ||| full ||| threecol ||| grid
     mtiled   = renamed [Replace "Bs"] $ smartBorders $ Mirror rt
     full     = renamed [Replace "M"] $ noBorders Full
     threecol = renamed [Replace "3c"] $ ThreeColMid 1 (3/100) (1/2)
-    grid     = renamed [Replace "G"] $ GridRatio (3/3)
-
-myManageHookShift = composeAll
-            -- if you want to know className, type "$ xprop|grep CLASS" on shell
-            [ className =? "Gimp"       --> mydoShift "3"
-            ]
-             where mydoShift = doF . liftM2 (.) W.greedyView W.shift
 
 myManageHookFloat = composeAll
     [ className =? "Gimp"             --> doFloat
-    , className =? "SMPlayer"               --> doFloat
     , className =? "mpv"              --> doCenterFloat
     , className =? "feh"              --> doCenterFloat
-    , className =? "Audacious"        --> doCenterFloat
-    --, className =? "Thunar"           --> doCenterFloat
+    , className =? "Thunar"           --> doCenterFloat
     , className =? "Websearch"        --> doCenterFloat
+    , className =? "Pavucontrol"      --> doSideFloat NE
     , title     =? "urxvt_float"      --> doSideFloat SC
     , isFullscreen                    --> doFullFloat
     , isDialog                        --> doCenterFloat
-    , stringProperty "WM_NAME" =? "LINE" --> (doRectFloat $ W.RationalRect 0.60 0.1 0.39 0.82)
-    , stringProperty "WM_NAME" =? "Google Keep" --> (doRectFloat $ W.RationalRect 0.3 0.1 0.4 0.82)
-    , stringProperty "WM_NAME" =? "tmptex.pdf - 1/1 (96 dpi)" --> (doRectFloat $ W.RationalRect 0.29 0.25 0.42 0.5)
-    , stringProperty "WM_NAME" =? "Figure 1" --> doCenterFloat
     ]
 
+-- xmobar
 myLogHook h = dynamicLogWithPP $ wsPP { ppOutput = hPutStrLn h }
 
--- xmobar
 myWsBar = "xmobar $HOME/.xmonad/xmobarrc"
 
 wsPP = xmobarPP { ppOrder           = \(ws:l:t:_)  -> [ws,l,t]
@@ -270,5 +224,3 @@ myXPConfig = def
 
 myMouse x = [ ((modm, button3), (\w -> focus w >> Flex.mouseResizeWindow w)) ]
 newMouse x = M.union (mouseBindings def x) (M.fromList (myMouse x))
-
--- vim: ft=haskell
