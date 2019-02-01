@@ -10,6 +10,7 @@
 ## verbose
     alias rm="rm -v"
     alias cp="cp -v"
+    alias mv="mv -v"
 
 # Have sudo understand aliases.
     alias sudo="sudo "
@@ -20,11 +21,11 @@
     alias u3='cd ../../../'
     alias u4='cd ../../../../'
 
-    alias mnt='mount'
-    alias umnt='umount'
+    alias mnt='mount -v'
+    alias umnt='umount -v'
 
     alias mtop='ps --no-header -eo pmem,size,vsize,comm | sort -nr | sed 10q'
-    alias ctop='ps --no-header -eo pcpu,comm | sort -nr | sed 10a'
+    alias ctop='ps --no-header -eo pcpu,comm | sort -nr | sed 10q'
     alias batp='echo "upower -i \$(upower -e | grep BAT) | grep -E \"percentage|to\ full|state\"";\
      upower -i $(upower -e | grep BAT) | grep -E "percentage|to\ full|state"'
 

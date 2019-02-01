@@ -1,14 +1,9 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
-{
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
 
+{
   # Use the systemd-boot EFI boot loader.
   boot= {
     loader= {
@@ -17,27 +12,9 @@
     };
 
     tmpOnTmpfs = true;
-  # disks
-    initrd.luks.devices = {
-      "nixos" = {
-        #device = "/dev/disk/by-uuid/55a8d607-cdc5-425c-bb88-397b9a658168";
-        preLVM = false;
-        allowDiscards = true;
-      };
-    };
   };
 
   systemd.generator-packages = [ pkgs.systemd-cryptsetup-generator ];
-  environment.etc = {
-    "crypttab" = {
-      enable = true;
-      text = ''
-home /dev/mapper/vg0-home /luks-keys/home luks
-      '';
-     };
-   };
-
-  networking.hostName = "seiketsu"; # Define your hostname.
 
   # Select internationalisation properties.
   i18n = {
@@ -73,12 +50,6 @@ home /dev/mapper/vg0-home /luks-keys/home luks
       windowManager.xmonad.extraPackages = self: [ self.xmonad-contrib ];
       windowManager.xmonad.haskellPackages = pkgs.haskell.packages.ghc822;
       windowManager.default = "xmonad";
-
-      xrandrHeads = [
-        "DVI-0"
-        {output="HDMI-3"; primary=true;}
-        "DisplayPort-4"
-      ];
     };
     sshd.enable = true;
   };
@@ -98,12 +69,14 @@ home /dev/mapper/vg0-home /luks-keys/home luks
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.extraGroups.ngyj.gid = 1000;
   users.extraGroups.aigis.gid = 1001;
   users.extraUsers = {
     ngyj = {
       createHome = true;
       home = "/home/ngyj";
       description = "namigyj";
+      group = "ngyj";
       extraGroups = [ "wheel" "audio" "video" "networkmanager" "disk" "aigis"];
       isNormalUser = true;
       uid = 1000;
@@ -143,6 +116,7 @@ home /dev/mapper/vg0-home /luks-keys/home luks
     haskellPackages.hpack
     haskellPackages.xmobar
     htop
+    psmisc
     jpegoptim
     mpv
     networkmanager
@@ -165,11 +139,4 @@ home /dev/mapper/vg0-home /luks-keys/home luks
   ];
 
   nix.gc.automatic = false;
-
-  # This value determines the NixOS release with which your system is to be
-  # compatible, in order to avoid breaking some software such as database
-  # servers. You should change this only after NixOS release notes say you
-  # should.
-  system.stateVersion = "19.03"; # Did you read the comment?
-
 }
