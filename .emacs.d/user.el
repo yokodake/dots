@@ -59,7 +59,8 @@
 (load "/home/ngyj/.emacs.d/modules/hs-lint.el")
 (require 'hs-lint)
 (add-hook 'dante-mode-hook
-          '(lambda () (flycheck-add-next-checker 'haskell-dante '(warning . haskell-hlint))))
+          '(lambda () (flycheck-add-next-checker 'haskell-dante
+                                            '(warning . haskell-hlint))))
 
 (defun dired-open-file ()
   "In dired, open the file named on this line."

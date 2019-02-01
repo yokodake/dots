@@ -94,9 +94,8 @@ main = do
        , "M-S-<Return>"
        ]
        `additionalKeysP` -- window management
-       [
        -- Shrink / Expand the focused window
-         ("M-,"    , sendMessage Shrink)
+       [ ("M-,"    , sendMessage Shrink)
        , ("M-."    , sendMessage Expand)
        , ("M-z"    , sendMessage MirrorShrink)
        , ("M-a"    , sendMessage MirrorExpand)
@@ -118,22 +117,20 @@ main = do
        -- Increase / Decrese the number of master pane
        , ("M-S-;"  , sendMessage $ IncMasterN 1)
        , ("M--"    , sendMessage $ IncMasterN (-1))
-       -- Go to the next / previous workspace
+       -- Workspace switching/shifting
        , ("M-<R>"  , nextWS )
        , ("M-<L>"  , prevWS )
        , ("M-l"    , nextWS )
        , ("M-h"    , prevWS )
-       -- Shift the focused window to the next / previous workspace
        , ("M-S-<R>", shiftToNext)
        , ("M-S-<L>", shiftToPrev)
        , ("M-S-l"  , shiftToNext)
        , ("M-S-h"  , shiftToPrev)
-       -- Move the focus down / up
+       -- focus
        , ("M-<D>"  , windows W.focusDown)
        , ("M-<U>"  , windows W.focusUp)
        , ("M-j"    , windows W.focusDown)
        , ("M-k"    , windows W.focusUp)
-       -- Swap the focused window down / up
        , ("M-S-j"  , windows W.swapDown)
        , ("M-S-k"  , windows W.swapUp)
        , ("M-S-<D>"  , windows W.swapDown)
