@@ -116,7 +116,6 @@
     haskellPackages.hpack
     haskellPackages.xmobar
     htop
-    psmisc
     jpegoptim
     mpv
     networkmanager
@@ -125,7 +124,9 @@
     optipng
     p7zip
     pavucontrol
+    psmisc
     racket
+    rofi
     rxvt_unicode
     scrot
     unzip
