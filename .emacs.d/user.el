@@ -1,12 +1,13 @@
 ;; pretty
 (set-default-font "Fira Code")
-(global-set-key (kbd " ") (lookup-key global-map (kbd " ")))
 
-(require 'sublimity)
-(require 'sublimity-scroll)
-(require 'sublimity-attractive)
-(sublimity-mode 1)
-(global-linum-mode -1)
+(use-package sublimity
+  :ensure t
+  :config
+  (require 'sublimity-scroll)
+  (require 'sublimity-attractive)
+  (global-linum-mode -1)
+  (sublimity-mode 1))
 
 (global-prettify-symbols-mode 1)
 (defun pretty-lambda-fun ()
@@ -36,14 +37,6 @@
 
 (setq c-default-style "linux" c-basic-offset 4)
 
-;; keybinds
-(require 'evil)
-(evil-mode 1)
-(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "S-C-<down>") 'shrink-window)
-(global-set-key (kbd "S-C-<up>") 'enlarge-window)
-
 ;; haskell
 (use-package dante
   :ensure t
@@ -51,17 +44,25 @@
   :commands 'dante-mode
   :init
   (add-hook 'haskell-mode-hook 'dante-mode)
-  (add-hook 'haskell-mode-hook 'flycheck-mode))
+  (add-hook 'haskell-mode-hook 'flycheck-mode)
+  :config
+  (use-package hs-lint
+    :ensure t
+    :init
+    (add-hook 'dante-mode-hook
+              '(lambda () (flycheck-add-next-checker 'haskell-dante
+                                                '(warning . haskell-hlint))))))
 (setq flymake-no-changes-timeout nil)
 (setq flymake-start-syntax-check-on-newline nil)
 (setq flycheck-check-syntax-automatically '(save mode-enabled))
 
-(load "/home/ngyj/.emacs.d/modules/hs-lint.el")
-(require 'hs-lint)
-(add-hook 'dante-mode-hook
-          '(lambda () (flycheck-add-next-checker 'haskell-dante
-                                            '(warning . haskell-hlint))))
 
+
+;; keybinds
+(use-package evil
+  :ensure t
+  :config
+  (evil-mode 1))
 (defun dired-open-file ()
   "In dired, open the file named on this line."
   (interactive)
@@ -69,3 +70,10 @@
     (call-process "xdg-open" nil 0 nil file)))
 
 (define-key dired-mode-map (kbd "C-c o") 'dired-open-file)
+
+(global-set-key (kbd " ") (lookup-key global-map (kbd " ")))
+
+(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>") 'shrink-window)
+(global-set-key (kbd "S-C-<up>") 'enlarge-window)

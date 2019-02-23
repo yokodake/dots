@@ -147,7 +147,7 @@ main = do
        [ ("M-S-<Return>", spawn "urxvt")
        , ("M-S-f", spawn "file_manager")
        , ("M-S-n", spawn "firefox-devedition")
-       , ("M-w", spawn "spotify")
+       , ("M-S-m", spawn "spotify")
        , ("M-d", spawn "dmenu_run")
        , ("M-S-l", spawn "slock")
        , ("M-<Return>", dwmpromote) -- Zoomswap dwm like
