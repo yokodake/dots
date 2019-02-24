@@ -1,6 +1,13 @@
 ;; pretty
 (set-default-font "Fira Code")
 
+(use-package doom-themes
+  :ensure t
+  :init
+  (load-theme 'doom-vibrant t)
+  :config
+  (doom-themes-org-config))
+
 (use-package sublimity
   :ensure t
   :config
@@ -46,7 +53,7 @@
   (add-hook 'haskell-mode-hook 'dante-mode)
   (add-hook 'haskell-mode-hook 'flycheck-mode)
   :config
-  (use-package hs-lint
+  (use-package hlint-refactor
     :ensure t
     :init
     (add-hook 'dante-mode-hook
