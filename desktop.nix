@@ -17,15 +17,6 @@
       allowDiscards = true;
     };
   };
-  environment.etc = {
-    "crypttab" = {
-      enable = true;
-      text = ''
-home /dev/mapper/vg0-home /luks-keys/home luks
-      '';
-     };
-   };
-
   services = {
     xserver.xrandrHeads = [
       "DVI-0"

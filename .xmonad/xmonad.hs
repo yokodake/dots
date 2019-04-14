@@ -148,6 +148,7 @@ main = do
        , ("M-S-f", spawn "file_manager")
        , ("M-S-n", spawn "firefox-devedition")
        , ("M-S-m", spawn "spotify")
+       , ("M-S-b", spawn "emacs")
        , ("M-d", spawn "dmenu_run")
        , ("M-S-l", spawn "slock")
        , ("M-<Return>", dwmpromote) -- Zoomswap dwm like
@@ -196,8 +197,8 @@ myWsBar = "xmobar $HOME/.xmonad/xmobarrc"
 
 wsPP = xmobarPP { ppOrder           = \(ws:l:t:_)  -> [ws,l,t]
                 , ppCurrent         = xmobarColor colorfg   colorDarkbg . \s -> "="++s++"="
-                , ppUrgent          = xmobarColor colorRed  colorDarkbg . \s -> "~"++s++"~"
-                , ppVisible         = xmobarColor colorfg   colorDarkbg . \s -> "-"++s++"-"
+                , ppUrgent          = xmobarColor colorRed  colorDarkbg . \s -> "<"++s++">"
+                , ppVisible         = xmobarColor colorfg   colorDarkbg . \s -> "~"++s++"~"
                 , ppHidden          = xmobarColor colorfg   colorDarkbg . \s -> "-"++s++"-"
                 , ppHiddenNoWindows = xmobarColor colorfg   colorDarkbg . \s -> "_"++s++"_"
                 , ppTitle           = xmobarColor colorfg   colorDarkbg
