@@ -18,6 +18,8 @@ export BROWSER='firefox-devedition'
 export EDITOR='vim'
 export LANG='en_US.UTF-8'
 # }}}
+export QT_QPA_CONFIG_HOME='qt5ct'
+export QT_QPA_PLATFORMTHEME='qt5ct'
 
 # Functions
 address() {

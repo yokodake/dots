@@ -45,10 +45,18 @@ Config { font = "xft:Fira Code:size=10"
                                            , "--high"   , "#ff8d80"
                                            ] 1200
 
-                    , Run MPD              [ "-t"       , "<title> - <artist> [<statei>]"
-                                           -- , "--"
-                                           -- , "-P", ">>", "-Z", ">|", "-S", "||"
+                    , Run BatteryP         ["BAT0"]
+                                           [ "-t", "b:<acstatus><left>%"
+                                           , "-L", "10", "-H", "80"
+                                           , "-l", "red", "-h", "green"
+                                           , "--", "-O", "<fc=green>+</fc>"
+                                           , "-o", "-"
                                            ] 10
+
+--                    , Run MPD              [ "-t"       , "<title> - <artist> [<statei>]"
+--                                           -- , "--"
+--                                           -- , "-P", ">>", "-Z", ">|", "-S", "||"
+--                                           ] 10
 
                     , Run Date "%a %m/%d %H:%M" "date" 300
                     , Run StdinReader

@@ -7,18 +7,19 @@
       ./configuration.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot= {
-    loader= {
-      grub = {
-        enable = true;
-        version = 2;
-        devices = [ "nodev" ];
-        efiSupport = true;
-      };
+  boot.loader= {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+
+    grub = {
+      enable = false;
+      version = 2;
+      devices = [ "nodev" ];
+      efiSupport = true;
+      configurationLimit = 10;
     };
-    blacklistedKernelModules = [ "radeon" ];
   };
+  boot.blacklistedKernelModules = [ "radeon" ];
 
   networking.networkmanager.enable = true;
   networking.hostName = "kusanagi"; # Define your hostname.
@@ -32,6 +33,9 @@
       libinput.tapping = true;
     };
   };
+  programs.qt5ct.enable = true;
+  hardware.opengl.enable = true;
+  hardware.opengl.driSupport32Bit = true;
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database

@@ -150,7 +150,7 @@ main = do
        , ("M-S-m", spawn "spotify")
        , ("M-S-b", spawn "emacs")
        , ("M-d", spawn "dmenu_run")
-       , ("M-S-l", spawn "slock")
+       , ("M-S-l", spawn "dm-tool switch-to-greeter")
        , ("M-<Return>", dwmpromote) -- Zoomswap dwm like
        , ("M-<Tab>", toggleWS)
        -- Play / Pause media keys : "<XF86AudioPlay>"  "<XF86HomePage>"

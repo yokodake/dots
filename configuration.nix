@@ -4,15 +4,7 @@
 { config, pkgs, ... }:
 
 {
-  # Use the systemd-boot EFI boot loader.
-  boot= {
-    loader= {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-
-    tmpOnTmpfs = true;
-  };
+  boot.tmpOnTmpfs = true;
 
   systemd.generator-packages = [ pkgs.systemd-cryptsetup-generator ];
 
