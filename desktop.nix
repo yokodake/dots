@@ -23,14 +23,12 @@
       {output="HDMI-3"; primary=true;}
       "DisplayPort-4"
     ];
-    sshd.enable = true;
+    plex.enable = true;
   };
 
-  boot ={
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
   };
 
   # This value determines the NixOS release with which your system is to be

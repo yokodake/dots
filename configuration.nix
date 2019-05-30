@@ -69,7 +69,7 @@
       home = "/home/ngyj";
       description = "namigyj";
       group = "ngyj";
-      extraGroups = [ "wheel" "audio" "video" "networkmanager" "disk" "aigis"];
+      extraGroups = [ "wheel" "audio" "video" "networkmanager" "disk" "aigis" "wireshark"];
       isNormalUser = true;
       uid = 1000;
     };
@@ -131,5 +131,5 @@
     zip
   ];
 
-  nix.gc.automatic = false;
+  nix.gc.automatic = true;
 }

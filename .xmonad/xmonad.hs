@@ -145,9 +145,9 @@ main = do
        ]
        `additionalKeysP` -- custom commands
        [ ("M-S-<Return>", spawn "urxvt")
-       , ("M-S-f", spawn "file_manager")
+       , ("M-S-f", spawn "krusader")
        , ("M-S-n", spawn "firefox-devedition")
-       , ("M-S-m", spawn "spotify")
+       , ("M-S-m", spawn "Discord")
        , ("M-S-b", spawn "emacs")
        , ("M-d", spawn "dmenu_run")
        , ("M-S-l", spawn "dm-tool switch-to-greeter")
