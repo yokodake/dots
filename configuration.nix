@@ -69,7 +69,7 @@
       home = "/home/ngyj";
       description = "namigyj";
       group = "ngyj";
-      extraGroups = [ "wheel" "audio" "video" "networkmanager" "disk" "aigis" "wireshark"];
+      extraGroups = [ "wheel" "audio" "video" "networkmanager" "disk" "aigis" "wireshark" "sway"];
       isNormalUser = true;
       uid = 1000;
     };
@@ -113,16 +113,19 @@
     networkmanager
     nitrogen
     nix-bash-completions
+    ntfs3g
     optipng
     p7zip
     pavucontrol
     psmisc
     racket
+    ripgrep
     rofi
     rxvt_unicode
     scrot
     unzip
     vim
+    # vimus
     wget
     which
     xlibs.xsetroot

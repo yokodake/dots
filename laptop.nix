@@ -32,6 +32,7 @@
       libinput.middleEmulation = true;
       libinput.tapping = true;
     };
+    sshd.enable = true;
   };
   programs.qt5ct.enable = true;
   hardware.opengl.enable = true;

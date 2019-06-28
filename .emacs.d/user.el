@@ -1,12 +1,16 @@
+;; *scratch*
+(setq initial-major-mode 'org-mode)
+
+
 ;; pretty
 (set-default-font "Fira Code")
 
-(use-package doom-themes
-  :ensure t
-  :init
-  (load-theme 'doom-vibrant t)
-  :config
-  (doom-themes-org-config))
+;(use-package doom-themes
+;  :ensure t
+;  :init
+;  (load-theme 'doom-nova t)
+;  :config
+;  (doom-themes-org-config))
 
 (use-package sublimity
   :ensure t
@@ -28,11 +32,14 @@
 (add-hook 'elisp-mode-hook 'pretty-lambda-fun)
 (add-hook 'scheme-mode-hook 'pretty-lambda-fun)
 
+
 (defun buffer-go ()
   (with-current-buffer (get-buffer "*scratch*")
-    (end-of-buffer)
-    (delete-region 1 (point))
-    (insert "\n\n\n\n\n"))
+    (let* ((wh (window-body-height))
+           (h (if wh (/ wh 2) 1)))
+      (end-of-buffer)
+      (delete-region 1 (point))
+      (insert (make-string h ?\n))))
   t)
 (when window-system
   (setq initial-buffer-choice 'buffer-go))
@@ -93,4 +100,15 @@
 
 (load-file (let ((coding-system-for-read 'utf-8))
                 (shell-command-to-string "agda-mode locate")))
+
 (global-set-key "\C-c\C-k" 'describe-char)
+
+; saving sessions
+(defun load-desktop-default ()
+  (interactive)
+  (desktop-change-dir "~/.emacs.d/.#desktop#"))
+(defun save-desktop-default ()
+  (interactive)
+  (desktop-save "~/.emacs.d/.#desktop#"))
+(global-set-key (kbd "C-c r l") 'load-desktop-default)
+(global-set-key (kbd "C-c r s") 'save-desktop-default)
