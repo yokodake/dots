@@ -173,9 +173,9 @@ myLayout =  tiled ||| mtiled ||| full ||| threecol
     delta    = 2/100 -- Percentage of the screen to increment when resizing
     ratio    = 5/8   -- Defaul proportion of the screen taken up by main pane
     rt       = spacing 5 $ ResizableTall nmaster delta ratio []
-    tiled    = renamed [Replace "T"] $ smartBorders rt
-    mtiled   = renamed [Replace "Bs"] $ smartBorders $ Mirror rt
-    full     = renamed [Replace "M"] $ noBorders Full
+    tiled    = renamed [Replace "V"] $ smartBorders rt
+    mtiled   = renamed [Replace "H"] $ smartBorders $ Mirror rt
+    full     = renamed [Replace "F"] $ noBorders Full
     threecol = renamed [Replace "3c"] $ ThreeColMid 1 (3/100) (1/2)
 
 myManageHookFloat = composeAll

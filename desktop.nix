@@ -24,6 +24,7 @@
       "DisplayPort-4"
     ];
     plex.enable = true;
+    openssh.permitRootLogin = false;
   };
 
   boot.loader = {

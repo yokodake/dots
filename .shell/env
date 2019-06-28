@@ -1,6 +1,7 @@
+animu=/home/aigis/Anime
 ## Programming envs {{{
-# cabal PATH
-export PATH=$PATH:~/.cabal/bin
+# haskell
+export PATH=$PATH:~/.cabal/bin:~/.local/bin
 
 # cargo
 export PATH="$PATH:$HOME/.cargo/bin"
