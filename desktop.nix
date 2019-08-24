@@ -21,10 +21,15 @@
     xserver.xrandrHeads = [
       "DVI-0"
       {output="HDMI-3"; primary=true;}
-      "DisplayPort-4"
+      {output="DisplayPort-4";
+       monitorConfig=''
+         Option "Rotate" "Right"
+         Option "Pos" "3840x-420"
+       '';
+      }
     ];
     plex.enable = true;
-    openssh.permitRootLogin = false;
+    openssh.permitRootLogin = "no";
   };
 
   boot.loader = {
