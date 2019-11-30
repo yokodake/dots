@@ -6,7 +6,7 @@
 {
   boot.tmpOnTmpfs = true;
 
-  systemd.generator-packages = [ pkgs.systemd-cryptsetup-generator ];
+  systemd.packages = [ pkgs.systemd-cryptsetup-generator ];
 
   # Select internationalisation properties.
   i18n = {
@@ -105,7 +105,6 @@
     firefox-devedition-bin
     git
     haskellPackages.hlint
-    haskellPackages.hpack
     haskellPackages.xmobar
     htop
     jpegoptim
