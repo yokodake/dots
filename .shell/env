@@ -1,4 +1,10 @@
+# anime folder
 animu=/home/aigis/Anime
+
+# do not delete bash_history
+export HISTSIZE=
+export HISTFILESIZE=
+
 ## Programming envs {{{
 # haskell
 export PATH=$PATH:~/.cabal/bin:~/.local/bin
@@ -10,7 +16,7 @@ export PATH="$PATH:$HOME/.cargo/bin"
 eval `opam config env`
 
 # rakudo
-export PATH=$PATH:~/build/rakudo/rakudo-star-2018.04/install/bin/:~/build/rakudo/rakudo-star-2018.04/install/share/perl6/site/bin
+#export PATH=$PATH:~/build/rakudo/rakudo-star-2018.04/install/bin/:~/build/rakudo/rakudo-star-2018.04/install/share/perl6/site/bin
 # }}}
 
 ## Software envs {{{

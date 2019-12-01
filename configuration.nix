@@ -40,7 +40,7 @@
       #windowManager.i3.enable = true;
       windowManager.xmonad.enable = true;
       windowManager.xmonad.extraPackages = self: [ self.xmonad-contrib ];
-      windowManager.xmonad.haskellPackages = pkgs.haskell.packages.ghc822;
+      windowManager.xmonad.haskellPackages = pkgs.haskell.packages.ghc865;
       windowManager.default = "xmonad";
     };
     sshd.enable = true;
@@ -95,38 +95,54 @@
     maxJobs = pkgs.stdenv.lib.mkForce 4;
   };
 
+  virtualisation.virtualbox.host.enable = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    ahoviewer
+    anki
     binutils
     cabal2nix
+    curl
     emacs
     feh
+    ffmpeg
     firefox-devedition-bin
     git
     haskellPackages.hlint
     haskellPackages.xmobar
     htop
     jpegoptim
+    kdeApplications.kio-extras
+    keepassxc
+    krita
+    krusader
     mpv
     networkmanager
     nitrogen
     nix-bash-completions
+    nomacs
     ntfs3g
     optipng
     p7zip
     pavucontrol
+    gnome3.polari
     psmisc
     racket
     ripgrep
     rofi
+    rustup
     rxvt_unicode
     scrot
+    spotify
+    tmsu
     unzip
     vim
     # vimus
     wget
     which
+    wine
     xlibs.xsetroot
     xscreensaver
     zathura
