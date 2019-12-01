@@ -63,5 +63,5 @@ urxvt.scrollWithBuffer: true
 !! urls
 urxvt.matcher.button:   C1
 urxvt.perl-ext-common:  default,matcher
-urxvt.url-launcher:     firefox
+urxvt.url-launcher:     firefox-devedition
 

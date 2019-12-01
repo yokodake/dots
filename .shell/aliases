@@ -102,4 +102,5 @@
     alias setusint='setxkbmap -layout us -variant intl'
     alias setus='setxkbmap -layout us'
     alias setdvp='setxkbmap -layout us -variant dvp'
+    alias ss='scrot -s'
 # }}}

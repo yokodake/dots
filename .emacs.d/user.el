@@ -1,7 +1,6 @@
 ;; *scratch*
 (setq initial-major-mode 'org-mode)
 
-
 ;; pretty
 (set-default-font "Fira Code")
 
@@ -70,6 +69,12 @@
 (setq flymake-start-syntax-check-on-newline nil)
 (setq flycheck-check-syntax-automatically '(save mode-enabled))
 
+;; CLOS
+(use-package slime
+  :ensure t
+  :config
+  (setq inferior-lisp-program "~/.nix-profile/bin/sbcl")
+  (setq slime-contribs '(slime-fancy)))
 
 
 ;; keybinds
@@ -97,6 +102,9 @@
             (setq indent-tabs-mode t)
             (setq tab-width 2)
             (setq python-indent 8)))
+(add-hook 'css-mode-hook
+          (lambda ()
+            (setq css-indent-offset 2)))
 
 (load-file (let ((coding-system-for-read 'utf-8))
                 (shell-command-to-string "agda-mode locate")))
@@ -112,3 +120,10 @@
   (desktop-save "~/.emacs.d/.#desktop#"))
 (global-set-key (kbd "C-c r l") 'load-desktop-default)
 (global-set-key (kbd "C-c r s") 'save-desktop-default)
+
+
+;; quicklisp
+
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
+;; Replace "sbcl" with the path to your implementation
+(setq inferior-lisp-program "sbcl")
