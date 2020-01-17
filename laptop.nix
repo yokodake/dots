@@ -1,5 +1,5 @@
+# laptop.nix
 { config, pkgs, ... }:
-
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -21,27 +21,41 @@
   };
   boot.blacklistedKernelModules = [ "radeon" ];
 
-  networking.networkmanager.enable = true;
-  networking.hostName = "kusanagi"; # Define your hostname.
+  networking = {
+    networkmanager.enable = true;
+    hostName = "kusanagi"; # Define your hostname.
+    hostId = "8425e349"; # Required by zfs.
+
+    # The global useDHCP flag is deprecated, therefore explicitly set to false here.
+    # Per-interface useDHCP will be mandatory in the future, so this generated config
+    # replicates the default behaviour.
+    useDHCP = false;
+    interfaces = {
+      enp0s31f6.useDHCP = true;
+      vboxnet0.useDHCP = true;
+      wlp1s0.useDHCP = true;
+    };
+  };
 
   # List services that you want to enable:
   services = {
   # Enable the X11 windowing system.
-    xserver = {
-      libinput.enable = true;
-      libinput.middleEmulation = true;
-      libinput.tapping = true;
+    xserver.libinput = {
+      enable = true;
+      middleEmulation = true;
+      tapping = true;
     };
     sshd.enable = true;
   };
   programs.qt5ct.enable = true;
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport32Bit = true;
+  hardware.opengl = {
+    enable = true;
+    driSupport32Bit = true;
+  };
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "19.03"; # Did you read the comment?
-
+  system.stateVersion = "19.09"; # Did you read the comment?
 }

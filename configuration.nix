@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 { config, pkgs, ... }:
-
+# configuration.nix
 {
   boot.tmpOnTmpfs = true;
 
@@ -110,11 +110,16 @@
     ffmpeg
     firefox-devedition-bin
     git
+    gnome3.polari
+    haskell.compiler.ghc881
+    haskellPackages.cabal-install
     haskellPackages.hlint
+    haskellPackages.stack
     haskellPackages.xmobar
     htop
     jpegoptim
     kdeApplications.kio-extras
+    kdeFrameworks.breeze-icons
     keepassxc
     krita
     krusader
@@ -127,7 +132,6 @@
     optipng
     p7zip
     pavucontrol
-    gnome3.polari
     psmisc
     racket
     ripgrep
@@ -147,6 +151,7 @@
     xscreensaver
     zathura
     zip
+    clang-tools
   ];
 
   nix.gc.automatic = true;
