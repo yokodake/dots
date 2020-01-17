@@ -110,12 +110,12 @@
     ffmpeg
     firefox-devedition-bin
     git
-    gnome3.polari
     haskell.compiler.ghc881
     haskellPackages.cabal-install
     haskellPackages.hlint
     haskellPackages.stack
     haskellPackages.xmobar
+    hexchat
     htop
     jpegoptim
     kdeApplications.kio-extras
