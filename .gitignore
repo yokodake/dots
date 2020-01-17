@@ -3,3 +3,8 @@ xmonad-x86_64-linux
 *.hi
 *.errors
 \#*\#
+
+.config/*
+!.config/mpd/
+!.config/mpv/
+.config/mpv/watch_later/
