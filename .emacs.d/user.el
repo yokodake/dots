@@ -48,7 +48,17 @@
   (setq flycheck-gcc-language-standard "c11"))
 (add-hook 'c-mode-hook #'my-flycheck-c-setup)
 
-(setq c-default-style "linux" c-basic-offset 4)
+(setq c-default-style "linux" c-basic-offset 2)
+
+(use-package clang-format
+  :ensure t
+  :init
+  (add-hook 'c++-mode-hook 'flycheck-mode)
+  :config
+  (add-hook 'c++-mode-hook
+            (function (lambda ()
+                        (add-hook 'before-save-hook
+                                  'clang-format-buffer)))))
 
 ;; haskell
 (use-package dante
@@ -76,6 +86,8 @@
   (setq inferior-lisp-program "~/.nix-profile/bin/sbcl")
   (setq slime-contribs '(slime-fancy)))
 
+;; quicklisp
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
 
 ;; keybinds
 (use-package evil
@@ -106,8 +118,8 @@
           (lambda ()
             (setq css-indent-offset 2)))
 
-(load-file (let ((coding-system-for-read 'utf-8))
-                (shell-command-to-string "agda-mode locate")))
+; (load-file (let ((coding-system-for-read 'utf-8))
+;                (shell-command-to-string "agda-mode locate")))
 
 (global-set-key "\C-c\C-k" 'describe-char)
 
@@ -120,10 +132,3 @@
   (desktop-save "~/.emacs.d/.#desktop#"))
 (global-set-key (kbd "C-c r l") 'load-desktop-default)
 (global-set-key (kbd "C-c r s") 'save-desktop-default)
-
-
-;; quicklisp
-
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
-;; Replace "sbcl" with the path to your implementation
-(setq inferior-lisp-program "sbcl")
