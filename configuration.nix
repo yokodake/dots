@@ -9,10 +9,8 @@
   systemd.packages = [ pkgs.systemd-cryptsetup-generator ];
 
   # Select internationalisation properties.
-  i18n = {
-    consoleKeyMap = "us";
-    defaultLocale = "en_US.UTF-8";
-  };
+  console.keyMap = "us";
+  i18n.defaultLocale = "en_US.UTF-8";
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";
@@ -32,16 +30,14 @@
       layout = "us,us(intl)";
       xkbOptions = "grp:shift_caps_toggle,nbsp:level2";
 
-      desktopManager = {
-        default = "none";
-        xterm.enable = false;
-      };
+      desktopManager.xterm.enable = false;
 
       #windowManager.i3.enable = true;
       windowManager.xmonad.enable = true;
       windowManager.xmonad.extraPackages = self: [ self.xmonad-contrib ];
       windowManager.xmonad.haskellPackages = pkgs.haskell.packages.ghc865;
-      windowManager.default = "xmonad";
+
+      displayManager.defaultSession = "none+xmonad";
     };
     sshd.enable = true;
   };
@@ -104,10 +100,12 @@
     anki
     binutils
     cabal2nix
+    clang-tools
     curl
     emacs
     feh
     ffmpeg
+    filezilla
     firefox-devedition-bin
     git
     haskell.compiler.ghc881
@@ -151,7 +149,6 @@
     xscreensaver
     zathura
     zip
-    clang-tools
   ];
 
   nix.gc.automatic = true;
