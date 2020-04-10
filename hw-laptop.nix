@@ -32,13 +32,12 @@
     [ { device = "/dev/disk/by-uuid/f9af689c-8d7c-4646-a573-58f0ea55e75d"; }
     ];
 
-  boot.initrd.luks.devices = [
-    {
-      name = "main";
+  boot.initrd.luks.devices = {
+    main = {
       device = "/dev/disk/by-uuid/84b64e62-2879-4f44-85e4-db209dc6e8b1";
       preLVM = true;
-    }
-  ];
+    };
+  };
 
   nix.maxJobs = lib.mkDefault 4;
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
