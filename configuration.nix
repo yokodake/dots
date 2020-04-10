@@ -89,7 +89,7 @@
   };
 
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgs.nixStable;
     trustedBinaryCaches = [ "http://cache.nixos.org" ];
     binaryCaches = [ "http://cache.nixos.org" ];
     maxJobs = pkgs.stdenv.lib.mkForce 4;
