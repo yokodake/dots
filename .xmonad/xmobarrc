@@ -10,7 +10,7 @@ Config { font = "xft:Fira Code:size=10"
        , overrideRedirect = False
        , border = BottomBM 0
        , borderColor = "#3e3e3e"
-       , commands = [ Run Network "wlp1s0" [ "-t"       , "d:<rx> u:<tx>"
+       , commands = [ Run Network "enp3s0" [ "-t"       , "d:<rx> u:<tx>"
                                            , "-L"       , "100"
                                            , "-H"       , "700"
                                            , "-m"       , "4"
@@ -18,7 +18,7 @@ Config { font = "xft:Fira Code:size=10"
                                            , "--high"   , "#ff8d80"
                                            ] 20
 
-                    , Run CoreTemp         [ "-t"       , "c:<core0>.<core1>"
+                    , Run CoreTemp         [ "-t"       , "c:<core0>.<core1>.<core2>.<core3>"
                                            , "-L"       , "40"
                                            , "-H"       , "75"
                                            , "-m"       , "2"
@@ -34,7 +34,9 @@ Config { font = "xft:Fira Code:size=10"
                                            , "--high"   , "#ff8d80"
                                            ] 20
 
-                    , Run DiskU            [("/dev/mapper/main", "r:<usedvp>%")]
+                    , Run DiskU            [ ("/", "r:<usedp>%")
+                                           , ("/home/aigis", "v:<usedp>%")
+                                           ]
                                            [ "-L"       , "50"
                                            , "-H"       , "85"
                                            , "-m"       , "2"
@@ -62,5 +64,5 @@ Config { font = "xft:Fira Code:size=10"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %StdinReader% }{%battery% / r:%du% / %coretemp% / %memory% / %wlp1s0% / <fc=#ede7b4>%date%</fc>  "
+       , template = " %StdinReader% }{%disku% / %coretemp% / %memory% / %enp3s0% / <fc=#ede7b4>%date%</fc>  "
        }

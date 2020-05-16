@@ -7,10 +7,10 @@ export HISTFILESIZE=
 
 ## Programming envs {{{
 # haskell
-export PATH=$PATH:~/.cabal/bin:~/.local/bin
+export PATH=$PATH:$HOME/.cabal/bin:$HOME/.local/bin
 
 # cargo
-export PATH="$PATH:$HOME/.cargo/bin"
+export PATH=$PATH:$HOME/.cargo/bin
 
 # opam
 eval `opam config env`

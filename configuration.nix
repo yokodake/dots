@@ -1,8 +1,8 @@
+# configuration.nix
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 { config, pkgs, ... }:
-# configuration.nix
 {
   boot.tmpOnTmpfs = true;
 
@@ -38,7 +38,14 @@
       windowManager.xmonad.haskellPackages = pkgs.haskell.packages.ghc865;
 
       displayManager.defaultSession = "none+xmonad";
+      displayManager.sessionCommands = ''
+        export PATH=$HOME/bin:$PATH
+
+        # disable accel on mouse
+        ${pkgs.xorg.xset}/bin/xset m 1/1 0
+      '';
     };
+
     sshd.enable = true;
   };
 
@@ -108,7 +115,7 @@
     filezilla
     firefox-devedition-bin
     git
-    haskell.compiler.ghc881
+    haskell.compiler.ghc882
     haskellPackages.cabal-install
     haskellPackages.hlint
     haskellPackages.stack
@@ -125,10 +132,9 @@
     networkmanager
     nitrogen
     nix-bash-completions
-    nomacs
+    # nomacs
     ntfs3g
     optipng
-    p7zip
     pavucontrol
     psmisc
     racket

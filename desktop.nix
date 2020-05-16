@@ -18,12 +18,17 @@
     };
   };
   services = {
+    xserver.resolutions = [
+      {x=1920; y=1080;}
+      {x=1920; y=1080;}
+      {x=1920; y=1080;}
+    ];
     xserver.xrandrHeads = [
       "DVI-0"
       { output="HDMI-3"; primary=true;}
       { output="DisplayPort-4";
         monitorConfig=''
-          Option "Rotate" "Right"
+          Option "Rotate" "Left"
           Option "Position" "3840 -420"
           Option "Mode" "1920x1080"
         '';

@@ -194,11 +194,11 @@ myManageHookFloat = composeAll
     ]
 
 -- xmobar
-myLogHook h = dynamicLogWithPP $ wsPP { ppOutput = hPutStrLn h }
+myLogHook = dynamicLogWithPP . wsPP
 
 myWsBar = "xmobar $HOME/.xmonad/xmobarrc"
 
-wsPP = xmobarPP
+wsPP h = xmobarPP
     { ppOrder           = \(ws:l:t:_)  -> [ws,l,t]
     , ppCurrent         = xmobarColor colorfg   colorDarkbg . \s -> "="++s++"="
     , ppUrgent          = xmobarColor colorRed  colorDarkbg . \s -> "<"++s++">"
@@ -206,7 +206,7 @@ wsPP = xmobarPP
     , ppHidden          = xmobarColor colorfg   colorDarkbg . \s -> "-"++s++"-"
     , ppHiddenNoWindows = xmobarColor colorfg   colorDarkbg . \s -> "_"++s++"_"
     , ppTitle           = xmobarColor colorfg   colorDarkbg
-    , ppOutput          = putStrLn
+    , ppOutput          = hPutStrLn h
     , ppWsSep           = " "
     , ppSep             = "  "
     }
