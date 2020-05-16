@@ -16,6 +16,8 @@
     alias sudo="sudo "
 
 ## system {{{
+    alias grep="rg"
+
     alias cd..='cd ..'
     alias u2='cd ../../'
     alias u3='cd ../../../'
