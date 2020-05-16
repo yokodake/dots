@@ -10,7 +10,7 @@ Config { font = "xft:Fira Code:size=10"
        , overrideRedirect = False
        , border = BottomBM 0
        , borderColor = "#3e3e3e"
-       , commands = [ Run Network "enp3s0" [ "-t"       , "d:<rx> u:<tx>"
+       , commands = [ Run Network "wlp1s0" [ "-t"       , "d:<rx> u:<tx>"
                                            , "-L"       , "100"
                                            , "-H"       , "700"
                                            , "-m"       , "4"
@@ -64,4 +64,3 @@ Config { font = "xft:Fira Code:size=10"
        , alignSep = "}{"
        , template = " %StdinReader% }{%battery% / r:%du% / %coretemp% / %memory% / %wlp1s0% / <fc=#ede7b4>%date%</fc>  "
        }
-
