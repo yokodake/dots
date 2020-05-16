@@ -18,7 +18,7 @@ Config { font = "xft:Fira Code:size=10"
                                            , "--high"   , "#ff8d80"
                                            ] 20
 
-                    , Run CoreTemp         [ "-t"       , "c:<core0>.<core1>.<core2>.<core3>"
+                    , Run CoreTemp         [ "-t"       , "c:<core0>.<core1>"
                                            , "-L"       , "40"
                                            , "-H"       , "75"
                                            , "-m"       , "2"
@@ -34,16 +34,14 @@ Config { font = "xft:Fira Code:size=10"
                                            , "--high"   , "#ff8d80"
                                            ] 20
 
-                    , Run DiskU            [ ("/"          , "r:<usedp>%")
-                                           , ("/home"      , "h:<usedp>%")
-                                           , ("/home/aigis", "v:<usedp>%")
-                                           ]
+                    , Run DiskU            [("/dev/mapper/main", "r:<usedvp>%")]
                                            [ "-L"       , "50"
                                            , "-H"       , "85"
                                            , "-m"       , "2"
                                            , "--normal" , "#b0bdbd"
                                            , "--high"   , "#ff8d80"
                                            ] 1200
+                    , Run Com "sh" ["-c", "zpool list rpool -Ho cap"] "du" 1200
 
                     , Run BatteryP         ["BAT0"]
                                            [ "-t", "b:<acstatus><left>%"
@@ -51,18 +49,19 @@ Config { font = "xft:Fira Code:size=10"
                                            , "-l", "red", "-h", "green"
                                            , "--", "-O", "<fc=green>+</fc>"
                                            , "-o", "-"
+                                           , "-i", "<fc=green>=</fc>"
                                            ] 10
 
---                    , Run MPD              [ "-t"       , "<title> - <artist> [<statei>]"
---                                           -- , "--"
---                                           -- , "-P", ">>", "-Z", ">|", "-S", "||"
---                                           ] 10
+                    , Run MPD              [ "-t"       , "<title> - <artist> [<statei>]"
+                                           -- , "--"
+                                           -- , "-P", ">>", "-Z", ">|", "-S", "||"
+                                           ] 10
 
                     , Run Date "%a %m/%d %H:%M" "date" 300
                     , Run StdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %StdinReader% }{%mpd% / %disku% / %coretemp% / %memory% / %enp3s0% / <fc=#ede7b4>%date%</fc>  "
+       , template = " %StdinReader% }{%battery% / r:%du% / %coretemp% / %memory% / %wlp1s0% / <fc=#ede7b4>%date%</fc>  "
        }
 

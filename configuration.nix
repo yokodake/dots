@@ -2,17 +2,15 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 { config, pkgs, ... }:
-
+# configuration.nix
 {
   boot.tmpOnTmpfs = true;
 
   systemd.packages = [ pkgs.systemd-cryptsetup-generator ];
 
   # Select internationalisation properties.
-  i18n = {
-    consoleKeyMap = "us";
-    defaultLocale = "en_US.UTF-8";
-  };
+  console.keyMap = "us";
+  i18n.defaultLocale = "en_US.UTF-8";
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";
@@ -32,16 +30,14 @@
       layout = "us,us(intl)";
       xkbOptions = "grp:shift_caps_toggle,nbsp:level2";
 
-      desktopManager = {
-        default = "none";
-        xterm.enable = false;
-      };
+      desktopManager.xterm.enable = false;
 
       #windowManager.i3.enable = true;
       windowManager.xmonad.enable = true;
       windowManager.xmonad.extraPackages = self: [ self.xmonad-contrib ];
       windowManager.xmonad.haskellPackages = pkgs.haskell.packages.ghc865;
-      windowManager.default = "xmonad";
+
+      displayManager.defaultSession = "none+xmonad";
     };
     sshd.enable = true;
   };
@@ -89,7 +85,7 @@
   };
 
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgs.nixStable;
     trustedBinaryCaches = [ "http://cache.nixos.org" ];
     binaryCaches = [ "http://cache.nixos.org" ];
     maxJobs = pkgs.stdenv.lib.mkForce 4;
@@ -104,17 +100,24 @@
     anki
     binutils
     cabal2nix
+    clang-tools
     curl
     emacs
     feh
     ffmpeg
+    filezilla
     firefox-devedition-bin
     git
+    haskell.compiler.ghc881
+    haskellPackages.cabal-install
     haskellPackages.hlint
+    haskellPackages.stack
     haskellPackages.xmobar
+    hexchat
     htop
     jpegoptim
     kdeApplications.kio-extras
+    kdeFrameworks.breeze-icons
     keepassxc
     krita
     krusader
@@ -127,7 +130,6 @@
     optipng
     p7zip
     pavucontrol
-    gnome3.polari
     psmisc
     racket
     ripgrep
