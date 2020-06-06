@@ -1,6 +1,6 @@
 ;; windows specific things
 (if (string-equal (getenv "OS") "Windows_NT")
-    (begin (require 'server)
+    (progn (require 'server)
            (unless (server-running-p)
              (server-start))
            (setq visible-bell 1)))
