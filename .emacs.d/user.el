@@ -1,8 +1,20 @@
+;; windows specific things
+(if (string-equal (getenv "OS") "Windows_NT")
+    (begin (require 'server)
+           (unless (server-running-p)
+             (server-start))
+           (setq visible-bell 1)))
+
 ;; *scratch*
 (setq initial-major-mode 'org-mode)
 
 ;; pretty
 (set-default-font "Fira Code")
+
+;; ignore this infuriating at-point file search
+;; https://emacs.stackexchange.com/a/5331
+(setq ido-use-filename-at-point nil)
+(setq ido-use-url-at-point nil)
 
 ;(use-package doom-themes
 ;  :ensure t
