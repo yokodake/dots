@@ -34,7 +34,7 @@
       #windowManager.i3.enable = true;
       windowManager.xmonad.enable = true;
       windowManager.xmonad.extraPackages = self: [ self.xmonad-contrib ];
-      windowManager.xmonad.haskellPackages = pkgs.haskell.packages.ghc865;
+      #windowManager.xmonad.haskellPackages = pkgs.haskell.packages.ghc865;
 
       displayManager.defaultSession = "none+xmonad";
       displayManager.sessionCommands = ''
