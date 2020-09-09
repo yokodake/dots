@@ -6,10 +6,9 @@
 {
   boot.tmpOnTmpfs = true;
 
-  systemd.packages = [ pkgs.systemd-cryptsetup-generator ];
+  systemd.packages = [ ];
 
   # Select internationalisation properties.
-  console.keyMap = "us";
   i18n.defaultLocale = "en_US.UTF-8";
 
   # Set your time zone.
