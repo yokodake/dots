@@ -9,7 +9,7 @@
 (setq initial-major-mode 'org-mode)
 
 ;; pretty
-(set-default-font "Fira Code")
+(set-frame-font "Fira Code")
 
 ;; ignore this infuriating at-point file search
 ;; https://emacs.stackexchange.com/a/5331
