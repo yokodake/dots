@@ -162,7 +162,7 @@ main = do
       ]
       `additionalKeysP`
       [(otherMasks ++ "M-" ++ [key], screenWorkspace scr >>= flip whenJust (windows . action))
-        | (key, scr) <- zip "wer" [0,1,2]
+        | (key, scr) <- zip "wer" [2,0,1]
         , (otherMasks, action) <- [ ("", W.view)
                                   , ("S-", W.shift)]
       ]

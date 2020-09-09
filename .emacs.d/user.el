@@ -16,12 +16,12 @@
 (setq ido-use-filename-at-point nil)
 (setq ido-use-url-at-point nil)
 
-;(use-package doom-themes
-;  :ensure t
-;  :init
-;  (load-theme 'doom-nova t)
-;  :config
-;  (doom-themes-org-config))
+(use-package doom-themes
+  :ensure t
+  :init
+  (load-theme 'doom-solarized-light t)
+  :config
+  (doom-themes-org-config))
 
 (use-package sublimity
   :ensure t
@@ -70,7 +70,7 @@
   (add-hook 'c++-mode-hook
             (function (lambda ()
                         (add-hook 'before-save-hook
-                                  'clang-format-buffer)))))
+                                  'clang-format-buffer nil t)))))
 
 ;; haskell
 (use-package dante
@@ -90,16 +90,6 @@
 (setq flymake-no-changes-timeout nil)
 (setq flymake-start-syntax-check-on-newline nil)
 (setq flycheck-check-syntax-automatically '(save mode-enabled))
-
-;; CLOS
-(use-package slime
-  :ensure t
-  :config
-  (setq inferior-lisp-program "~/.nix-profile/bin/sbcl")
-  (setq slime-contribs '(slime-fancy)))
-
-;; quicklisp
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
 
 ;; keybinds
 (use-package evil
