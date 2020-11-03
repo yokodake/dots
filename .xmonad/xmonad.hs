@@ -17,7 +17,7 @@ import           XMonad.Actions.DwmPromote (dwmpromote)
 
 import           XMonad.Hooks.DynamicLog (PP(..), dynamicLogWithPP, xmobarPP, xmobarColor)
 import           XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
-import           XMonad.Hooks.ManageDocks (manageDocks, docksEventHook, avoidStruts)
+import           XMonad.Hooks.ManageDocks (manageDocks, docksEventHook, avoidStruts, ToggleStruts(..))
 import           XMonad.Hooks.ManageHelpers (Side(..), doCenterFloat, doSideFloat,
                                              doFullFloat, isDialog, isFullscreen)
 
@@ -29,6 +29,7 @@ import           XMonad.Layout.Spacing (spacing)
 import           XMonad.Layout.ThreeColumns (ThreeCol(..))
 import           XMonad.Layout.ToggleLayouts (ToggleLayout(..), toggleLayouts)
 import           XMonad.Layout.TwoPane (TwoPane(..))
+import           XMonad.Layout.Fullscreen (fullscreenFloat)
 
 import           XMonad.Prompt (XPConfig(..), XPPosition(..))
 import           XMonad.Prompt.Window (windowPromptGoto, windowPromptBring)
@@ -80,7 +81,7 @@ main = do
       , focusedBorderColor = focusedBC
       , manageHook         = myManageHookFloat <+> manageDocks
       , layoutHook         = avoidStruts
-                             . toggleLayouts (noBorders Full)
+                             . toggleLayouts (fullscreenFloat Full)
                              $ myLayout
       , logHook = myLogHook wsbar >> updatePointer (0.5,0.5) (0,0)
       , handleEventHook    = fullscreenEventHook <+> docksEventHook
@@ -102,8 +103,8 @@ main = do
       -- Close the focused window
       , ("M-S-c"    , kill1)
       -- Toggle layout (Fullscreen mode)
-      , ("M-f"    , sendMessage ToggleLayout)
-      , ("M-S-f"  , withFocused (keysMoveWindow (-borderwidth,-borderwidth)))
+      , ("M-f"    , sendMessage ToggleLayout >> sendMessage ToggleStruts )
+      -- , ("M-S-f"  , withFocused (keysMoveWindow (-borderwidth,-borderwidth)))
       -- toggle layout (simplest float)
       , ("M-u"    , sendMessage (Toggle "Simplest"))
       -- Move the focused window
@@ -145,7 +146,7 @@ main = do
       ]
       `additionalKeysP` -- custom commands
       [ ("M-S-<Return>", spawn "urxvt")
-      , ("M-S-f", spawn "krusader")
+      , ("M-S-,", spawn "krusader")
       , ("M-S-n", spawn "firefox-devedition")
       , ("M-S-m", spawn "Discord")
       , ("M-S-b", spawn "emacs")
