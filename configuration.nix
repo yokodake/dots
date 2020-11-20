@@ -102,6 +102,19 @@
 
   virtualisation.virtualbox.host.enable = true;
 
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+    configure = {
+      customRC = builtins.readFile ./.vimrc;
+      packages.myVimPackage = with pkgs.vimPlugins; {
+        start = [ fugitive vim-nix ];
+      };
+    };
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -148,7 +161,6 @@
     spotify
     tmsu
     unzip
-    vim
     # vimus
     wget
     which
