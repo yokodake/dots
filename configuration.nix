@@ -3,7 +3,11 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 { config, pkgs, ... }:
-{
+rec {
+
+  imports = [ ./home.nix ];
+
+
   boot.tmpOnTmpfs = true;
 
   systemd.packages = [ ];
@@ -67,6 +71,7 @@
   users.extraGroups.aigis.gid = 1001;
   users.extraUsers = {
     ngyj = {
+      name = "ngyj";
       createHome = true;
       home = "/home/ngyj";
       description = "namigyj";
@@ -85,6 +90,15 @@
     };
   };
 
+  home-cfgs = [
+    { user = users.extraUsers.ngyj
+    ; files = [
+        "./foo.test"
+        { src = "./foo.test"; dst = "./bar.test"; }
+      ];
+    }
+  ];
+
   nixpkgs.config = {
     pulseaudio = true;
     allowUnfree = true;
@@ -99,8 +113,6 @@
       experimental-features = nix-command flakes
     '';
   };
-
-  virtualisation.virtualbox.host.enable = true;
 
   programs.neovim = {
     enable = true;
