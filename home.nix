@@ -31,11 +31,18 @@ let fileOptions = with types; submodule {
             '';
           };
 
-          files = mkOption {
+          copy = mkOption {
             default = [];
             type = listOf (either str fileOptions);
             description = ''
               files to be copied
+            '';
+          };
+          flan = mkOption {
+            default = [];
+            type = listOf (either str fileOptions);
+            description = ''
+              files to be passed to flan
             '';
           };
         };
@@ -45,12 +52,12 @@ let fileOptions = with types; submodule {
 
   config = let f = x: if isString x then {src=x; dst=x;} else x;
                scriptForEach = f: builtins.foldl' (acc: x: f x + acc) "";
-               files = u: map f u.files;
+               copies = u: map f u.copy;
                package = pkgs.stdenvNoCC.mkDerivation {
                  name = "home-cfg";
                  src  = builtins.path {
                    path = ./.;
-                   filter = (path: type: path != ./.git);
+                   filter = (path: type: !(hasSuffix "/.git" path) && !(hasSuffix ".nix" path));
                  };
                  installPhase =
                    "mkdir -p $out\n"
@@ -60,7 +67,7 @@ let fileOptions = with types; submodule {
                          + scriptForEach
                              (file:
                                "cp -r ${file.src} $out/${usr.user.name}/${file.dst}\n")
-                             (files usr))
+                             (copies usr))
 
                        config.home-cfgs;
                };

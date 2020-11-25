@@ -40,5 +40,9 @@ ns() {
   nix-shell -p $1 --run "$@"
 }
 
+showdrv() {
+  nix show-derivation "/nix/store/$1"
+}
+
 # Export the user created function names. -- t. mvdw
 export BASH_FUNCTION_NAMES=$(declare -F | awk '{if (substr($3, 0, 1) != "_") print $3}')

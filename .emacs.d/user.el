@@ -91,6 +91,10 @@
 (setq flymake-start-syntax-check-on-newline nil)
 (setq flycheck-check-syntax-automatically '(save mode-enabled))
 
+;; nix
+(use-package nix-mode
+  :mode "\\.nix\\'")
+
 ;; keybinds
 (use-package evil
   :ensure t

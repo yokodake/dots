@@ -10,3 +10,5 @@ ci="commit"
 br="branch"
 [core]
 	autocrlf = input
+[pull]
+	rebase = false
