@@ -93,6 +93,7 @@ main = do
       [ "M-S-p" -- Unused gmrun binding
       , "M-S-c" -- Unused close window binding
       , "M-S-<Return>"
+      , "M-q"
       ]
       `additionalKeysP` -- window management
       -- Shrink / Expand the focused window
@@ -163,7 +164,7 @@ main = do
       ]
       `additionalKeysP`
       [(otherMasks ++ "M-" ++ [key], screenWorkspace scr >>= flip whenJust (windows . action))
-        | (key, scr) <- zip "wer" [2,0,1]
+        | (key, scr) <- zip "qwe" [2,0,1]
         , (otherMasks, action) <- [ ("", W.view)
                                   , ("S-", W.shift)]
       ]
