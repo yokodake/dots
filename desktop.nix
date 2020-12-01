@@ -34,7 +34,7 @@
         '';
       }
     ];
-    plex.enable = true;
+    plex.enable = false;
     openssh.permitRootLogin = "no";
   };
 

@@ -129,7 +129,7 @@
     filezilla
     firefox-devedition-bin
     git
-    haskell.compiler.ghc882
+    haskell.compiler.ghc8102
     haskellPackages.cabal-install
     haskellPackages.hlint
     haskellPackages.stack
