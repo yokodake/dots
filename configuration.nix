@@ -32,18 +32,19 @@
 
       desktopManager.xterm.enable = false;
 
-      #windowManager.i3.enable = true;
       windowManager.xmonad.enable = true;
       windowManager.xmonad.extraPackages = self: [ self.xmonad-contrib ];
-      #windowManager.xmonad.haskellPackages = pkgs.haskell.packages.ghc865;
 
-      displayManager.defaultSession = "none+xmonad";
-      displayManager.sessionCommands = ''
-        export PATH=$HOME/bin:$PATH
+      displayManager = {
+        defaultSession = "none+xmonad";
+        lightdm.background = ./assets/.greeter-image;
+        sessionCommands = ''
+          export PATH=$HOME/bin:$PATH
 
-        # disable accel on mouse
-        ${pkgs.xorg.xset}/bin/xset m 1/1 0
-      '';
+          # disable accel on mouse
+          ${pkgs.xorg.xset}/bin/xset m 1/1 0
+        '';
+      };
     };
 
     sshd.enable = true;

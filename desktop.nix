@@ -1,5 +1,5 @@
 # desktop.nix
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -18,25 +18,36 @@
     };
   };
   services = {
-    xserver.resolutions = [
-      { x=1920; y=1080; }
-      { x=1920; y=1080; }
-      { x=1920; y=1080; }
-    ];
-    xserver.xrandrHeads = [
-      { output="DVI-0"; }
-      { output="HDMI-3"; primary=true; }
-      { output="DisplayPort-4";
-        monitorConfig=''
-          Option "Rotate" "Left"
-          Option "Position" "3840 -420"
-          Option "Mode" "1920x1080"
-        '';
-      }
-    ];
+    xserver = rec {
+      resolutions = [
+        { x=1920; y=1080; }
+        { x=1920; y=1080; }
+        { x=1920; y=1080; }
+      ];
+      xrandrHeads = [
+        { output="DVI-0"; }
+        { output="HDMI-3"; primary=true; }
+        { output="DisplayPort-4";
+          monitorConfig=''
+            Option "Rotate" "Left"
+            Option "Position" "3840 -420"
+            Option "Mode" "1920x1080"
+          '';
+        }
+      ];
+      desktopManager.session = let
+        bgs = lib.imap0 (i: _: "--bg-fill $HOME/.background_image" + toString i) xrandrHeads;
+      in [{ name = "none";
+            start = ''
+                ${pkgs.feh}/bin/feh ${toString bgs}
+            '';
+      }];
+    };
     plex.enable = false;
     openssh.permitRootLogin = "no";
   };
+
+
 
   boot.loader = {
     systemd-boot.enable = true;
