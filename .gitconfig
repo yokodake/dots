@@ -1,14 +1,19 @@
 # This is Git's per-user configuration file.
 [user]
-name = yokodake
-email = ngyj@cinnabar.fr
+name  = yokodake
+email = yokodake@cinnabar.fr
 
 [alias]
 change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch -f --env-filter \"if [ \\\"$`echo $VAR`\\\" = '$OLD' ]; then export $VAR='$NEW'; fi\" $@; }; f "
+
 lg="log --graph --color --pretty=\"format:%h %an %Cblue%ae%Creset %Cgreen%s%Creset\""
-ci="commit"
+
+cm="commit"
 br="branch"
+ch="checkout"
+
 [core]
-	autocrlf = input
+autocrlf = false
+
 [pull]
-	rebase = false
+rebase = true
