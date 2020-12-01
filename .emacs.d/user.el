@@ -11,6 +11,17 @@
 ;; pretty
 (set-frame-font "Fira Code")
 
+(defun buffer-go ()
+  (with-current-buffer (get-buffer "*scratch*")
+    (let* ((wh (window-body-height))
+           (h (if wh (/ wh 2) 1)))
+      (end-of-buffer)
+      (delete-region 1 (point))
+      (insert (make-string h ?\n))))
+  t)
+(when window-system
+  (setq initial-buffer-choice 'buffer-go))
+
 ;; ignore this infuriating at-point file search
 ;; https://emacs.stackexchange.com/a/5331
 (setq ido-use-filename-at-point nil)
@@ -31,6 +42,8 @@
   (global-linum-mode -1)
   (sublimity-mode 1))
 
+;;;;;;;;;;;;;; PL ;;;;;;;;;;;;;;
+;; lisps
 (global-prettify-symbols-mode 1)
 (defun pretty-lambda-fun ()
   "make mostly for lisps"
@@ -43,23 +56,10 @@
 (add-hook 'elisp-mode-hook 'pretty-lambda-fun)
 (add-hook 'scheme-mode-hook 'pretty-lambda-fun)
 
-
-(defun buffer-go ()
-  (with-current-buffer (get-buffer "*scratch*")
-    (let* ((wh (window-body-height))
-           (h (if wh (/ wh 2) 1)))
-      (end-of-buffer)
-      (delete-region 1 (point))
-      (insert (make-string h ?\n))))
-  t)
-(when window-system
-  (setq initial-buffer-choice 'buffer-go))
-
 ;; C
 (defun my-flycheck-c-setup ()
   (setq flycheck-gcc-language-standard "c11"))
 (add-hook 'c-mode-hook #'my-flycheck-c-setup)
-
 (setq c-default-style "linux" c-basic-offset 2)
 
 (use-package clang-format
@@ -87,13 +87,28 @@
     (add-hook 'dante-mode-hook
               '(lambda () (flycheck-add-next-checker 'haskell-dante
                                                 '(warning . haskell-hlint))))))
-(setq flymake-no-changes-timeout nil)
-(setq flymake-start-syntax-check-on-newline nil)
-(setq flycheck-check-syntax-automatically '(save mode-enabled))
 
 ;; nix
 (use-package nix-mode
   :mode "\\.nix\\'")
+
+(add-hook 'python-mode-hook
+          (lambda ()
+            (setq indent-tabs-mode t)
+            (setq tab-width 2)
+            (setq python-indent 8)))
+(add-hook 'css-mode-hook
+          (lambda ()
+            (setq css-indent-offset 2)))
+
+;; agda
+; (load-file (let ((coding-system-for-read 'utf-8))
+;                (shell-command-to-string "agda-mode locate")))
+
+
+(setq flymake-no-changes-timeout nil)
+(setq flymake-start-syntax-check-on-newline nil)
+(setq flycheck-check-syntax-automatically '(save mode-enabled))
 
 ;; keybinds
 (use-package evil
@@ -114,18 +129,6 @@
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
-
-(add-hook 'python-mode-hook
-          (lambda ()
-            (setq indent-tabs-mode t)
-            (setq tab-width 2)
-            (setq python-indent 8)))
-(add-hook 'css-mode-hook
-          (lambda ()
-            (setq css-indent-offset 2)))
-
-; (load-file (let ((coding-system-for-read 'utf-8))
-;                (shell-command-to-string "agda-mode locate")))
 
 (global-set-key "\C-c\C-k" 'describe-char)
 
