@@ -5,6 +5,12 @@
              (server-start))
            (setq visible-bell 1)))
 
+;; nix-shell
+(defun in-nix-shell ()
+  (let (x (getenv "IN_NIX_SHELL"))
+    (or (string-equal x "impure")
+        (string-equal x "pure"))))
+
 ;; *scratch*
 (setq initial-major-mode 'org-mode)
 
@@ -87,6 +93,31 @@
     (add-hook 'dante-mode-hook
               '(lambda () (flycheck-add-next-checker 'haskell-dante
                                                 '(warning . haskell-hlint))))))
+
+;; ocaml
+(setq ngyj/merlin-site-elisp (getenv "MERLIN_SITE_LISP"))
+(setq ngyj/utop-site-elisp (getenv "UTOP_SITE_LISP"))
+(setq ngyj/ocp-site-elisp (getenv "OCP_INDENT_SITE_LISP"))
+
+(use-package merlin
+  :if (and ngyj/merlin-site-elisp
+           (in-nix-shell))
+  :load-path ngyj/merlin-site-elisp
+  :hook
+  (tuareg-mode . merlin-mode)
+  (merlin-mode . company-mode)
+  :custom
+  (merlin-command "ocamlmerlin"))
+(use-package utop
+  :if (and ngyj/utop-site-elisp
+           (in-nix-shell))
+  :load-path ngyj/utop-site-elisp
+  :hook
+  (tuareg-mode . utop-minor-mode))
+(use-package ocp-indent
+  :if (and ngyj/ocp-site-elisp
+           (in-nix-shell))
+  :load-path ngyj/ocp-site-elisp)
 
 ;; nix
 (use-package nix-mode

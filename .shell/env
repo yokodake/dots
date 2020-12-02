@@ -12,9 +12,6 @@ export PATH=$PATH:$HOME/.cabal/bin:$HOME/.local/bin
 # cargo
 export PATH=$PATH:$HOME/.cargo/bin
 
-# opam
-eval `opam config env`
-
 # rakudo
 #export PATH=$PATH:~/build/rakudo/rakudo-star-2018.04/install/bin/:~/build/rakudo/rakudo-star-2018.04/install/share/perl6/site/bin
 # }}}
