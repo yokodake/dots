@@ -32,7 +32,6 @@
     useDHCP = false;
     interfaces = {
       enp0s31f6.useDHCP = true;
-      vboxnet0.useDHCP = true;
       wlp1s0.useDHCP = true;
     };
   };
