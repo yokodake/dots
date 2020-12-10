@@ -121,7 +121,6 @@
     ahoviewer
     anki
     binutils
-    cabal2nix
     clang-tools
     curl
     emacs
@@ -167,7 +166,6 @@
     wine
     xlibs.xsetroot
     xscreensaver
-    zathura
     zip
   ];
 
