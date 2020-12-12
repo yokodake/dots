@@ -35,13 +35,11 @@
           '';
         }
       ];
-      desktopManager.session = let
-        bgs = lib.imap0 (i: _: "--bg-fill $HOME/.background_image" + toString i) xrandrHeads;
-      in [{ name = "none";
-            start = ''
+      displayManager.sessionCommands = let
+        bgs = lib.imap0 (i: _: "--bg-fill $HOME/.background-image" + toString i) xrandrHeads;
+      in ''
                 ${pkgs.feh}/bin/feh ${toString bgs}
-            '';
-      }];
+         '';
     };
     plex.enable = false;
     openssh.permitRootLogin = "no";
