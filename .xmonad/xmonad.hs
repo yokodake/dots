@@ -33,14 +33,17 @@ import           XMonad.Layout.Fullscreen (fullscreenFloat)
 
 import           XMonad.Prompt (XPConfig(..), XPPosition(..))
 import           XMonad.Prompt.Window (windowPromptGoto, windowPromptBring)
-import           XMonad.Util.EZConfig (removeKeysP, additionalKeysP)
+import           XMonad.Util.EZConfig (removeKeysP, additionalKeysP, additionalKeys)
 import           XMonad.Util.Run (spawnPipe)      -- spawnPipe, hPutStrLn
 
 import qualified Graphics.X11.ExtraTypes.XF86 as XF86
 
 -- config stuff
 myWorkspaces = map show [1..9]
-modm = mod4Mask
+winMask  = mod4Mask
+altMask  = mod1Mask
+raltMask = mod3Mask
+modm     = winMask
 
 -- Arc Color Setting
 colorfg         = "#ece8cf"
@@ -94,6 +97,8 @@ main = do
       , "M-S-c" -- Unused close window binding
       , "M-S-<Return>"
       , "M-q"
+      , "M-<Return>" -- swap master window => swap layout
+      , "M-<Space>"  -- swap layout => swap keyboard layout variant
       ]
       `additionalKeysP` -- window management
       -- Shrink / Expand the focused window
@@ -141,10 +146,11 @@ main = do
       , ("M-S-m"  , windows W.shiftMaster)
       -- Move the focus to next screen (multi screen)
       , ("M-<Tab>", nextScreen)
-      -- Now we have more than one screen by dividing a single screen
-      , ("M-C-<Space>", layoutScreens 2 (TwoPane 0.5 0.5))
-      , ("M-C-S-<Space>", rescreen)
+      -- remap
+      , ("M-C-S-<Return>", rescreen)
       ]
+      `additionalKeys`
+      [ ((altMask, xK_Return), sendMessage NextLayout) ]
       `additionalKeysP` -- custom commands
       [ ("M-S-<Return>", spawn "urxvt")
       , ("M-S-,", spawn "krusader")

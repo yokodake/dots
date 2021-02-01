@@ -28,7 +28,7 @@
     xserver = {
       enable = true;
       layout = "us,us(intl)";
-      xkbOptions = "grp:shift_caps_toggle,nbsp:level2";
+      xkbOptions = "grp:win_space_toggle,ctrl:swapcaps,grp_led:scroll";
 
       desktopManager.xterm.enable = false;
 
