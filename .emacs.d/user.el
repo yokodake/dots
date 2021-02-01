@@ -154,8 +154,6 @@
 
 (define-key dired-mode-map (kbd "C-c o") 'dired-open-file)
 
-(global-set-key (kbd " ") (lookup-key global-map (kbd " ")))
-
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
