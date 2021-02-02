@@ -94,6 +94,13 @@
               '(lambda () (flycheck-add-next-checker 'haskell-dante
                                                 '(warning . haskell-hlint))))))
 
+;; rust
+(use-package rust-mode
+  :ensure t
+  :init
+  (add-hook 'rust-mode-hook (lambda () (setq indent-tabs-mode nil)))
+  )
+
 ;; ocaml
 (setq ngyj/merlin-site-elisp (getenv "MERLIN_SITE_LISP"))
 (setq ngyj/utop-site-elisp (getenv "UTOP_SITE_LISP"))
