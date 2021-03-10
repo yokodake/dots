@@ -136,8 +136,8 @@
     hexchat
     htop
     jpegoptim
-    kdeApplications.kio-extras
-    kdeFrameworks.breeze-icons
+    plasma5Packages.kio-extras
+    plasma5Packages.breeze-icons
     keepassxc
     krita
     krusader
