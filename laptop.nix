@@ -41,8 +41,8 @@
   # Enable the X11 windowing system.
     xserver.libinput = {
       enable = true;
-      middleEmulation = true;
-      tapping = true;
+      touchpad.middleEmulation = true;
+      touchpad.tapping = true;
     };
     sshd.enable = true;
   };
