@@ -9,6 +9,8 @@
 
   networking.hostName = "seiketsu"; # Define your hostname.
 
+  boot.initrd.kernelModules = [ "amdgpu" ];
+
   # disks
   boot.initrd.luks.devices = {
     "nixos" = {
@@ -19,6 +21,7 @@
   };
   services = {
     xserver = rec {
+      videoDrivers = [ "ati" ];
       resolutions = [
         { x=1920; y=1080; }
         { x=1920; y=1080; }
