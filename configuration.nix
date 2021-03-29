@@ -96,7 +96,6 @@
     package = pkgs.nixUnstable;
     trustedBinaryCaches = [ "http://cache.nixos.org" ];
     binaryCaches = [ "http://cache.nixos.org" ];
-    maxJobs = pkgs.stdenv.lib.mkForce 4;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
