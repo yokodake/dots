@@ -97,19 +97,21 @@ main = do
       , "M-S-c" -- Unused close window binding
       , "M-S-<Return>"
       , "M-q"
-      , "M-<Return>" -- swap master window => swap layout
+      , "M-<Return>"
       , "M-<Space>"  -- swap layout => swap keyboard layout variant
       ]
       `additionalKeysP` -- window management
+      -- swap layout
+      [ ("M-<Backspace>", sendMessage NextLayout)
+      -- Toggle Fullscreen mode
+      , ("M-f"    , sendMessage ToggleLayout >> sendMessage ToggleStruts )
       -- Shrink / Expand the focused window
-      [ ("M-,"    , sendMessage Shrink)
+      , ("M-,"    , sendMessage Shrink)
       , ("M-."    , sendMessage Expand)
       , ("M-z"    , sendMessage MirrorShrink)
       , ("M-a"    , sendMessage MirrorExpand)
       -- Close the focused window
       , ("M-S-c"    , kill1)
-      -- Toggle layout (Fullscreen mode)
-      , ("M-f"    , sendMessage ToggleLayout >> sendMessage ToggleStruts )
       -- , ("M-S-f"  , withFocused (keysMoveWindow (-borderwidth,-borderwidth)))
       -- toggle layout (simplest float)
       , ("M-u"    , sendMessage (Toggle "Simplest"))
@@ -149,8 +151,6 @@ main = do
       -- remap
       , ("M-C-S-<Return>", rescreen)
       ]
-      `additionalKeys`
-      [ ((altMask, xK_Return), sendMessage NextLayout) ]
       `additionalKeysP` -- custom commands
       [ ("M-S-<Return>", spawn "urxvt")
       , ("M-S-,", spawn "krusader")
