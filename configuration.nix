@@ -151,6 +151,7 @@
     nix-bash-completions
     ntfs3g
     optipng
+    obs-studio
     pavucontrol
     plasma5Packages.breeze-icons
     plasma5Packages.kio-extras
