@@ -23,6 +23,7 @@
 
   networking = {
     networkmanager.enable = true;
+    networkmanager.insertNameservers = config.networking.nameservers;
     hostName = "kusanagi"; # Define your hostname.
     hostId = "8425e349"; # Required by zfs.
 
