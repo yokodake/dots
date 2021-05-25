@@ -64,6 +64,8 @@
     ];
   };
 
+  networking.nameservers = ["9.9.9.9" "149.112.112.112"];
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraGroups.ngyj.gid = 1000;
   users.extraGroups.aigis.gid = 1001;
@@ -84,6 +86,7 @@
       description = "Aigis";
       group = "aigis";
       uid = 1001;
+      isNormalUser = true;
     };
   };
 
