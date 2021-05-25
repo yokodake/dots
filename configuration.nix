@@ -120,6 +120,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    # nomacs
+    # vimus
     ahoviewer
     anki
     binutils
@@ -139,20 +141,22 @@
     hexchat
     htop
     jpegoptim
-    plasma5Packages.kio-extras
-    plasma5Packages.breeze-icons
     keepassxc
     krita
     krusader
+    kvm
     mpv
     networkmanager
     nitrogen
     nix-bash-completions
-    # nomacs
     ntfs3g
     optipng
     pavucontrol
+    plasma5Packages.breeze-icons
+    plasma5Packages.kio-extras
     psmisc
+    qemu
+    qemu-utils
     racket
     ripgrep
     rofi
@@ -162,7 +166,6 @@
     spotify
     tmsu
     unzip
-    # vimus
     wget
     which
     wine
