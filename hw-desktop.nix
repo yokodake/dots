@@ -29,10 +29,11 @@
       fsType = "vfat";
     };
 
-  fileSystems."/home/aigis" =
-    { device = "dev/disk/by-label/neco";
-      fsType = "xfs";
-    };
+#  fileSystems."/home/aigis" =
+#    { device = "dev/disk/by-label/neco";
+#      fsType = "xfs";
+#    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/f5cebe18-ebd8-492f-a57b-d419a31db206"; }
     ];
