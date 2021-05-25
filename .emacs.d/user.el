@@ -1,3 +1,5 @@
+;;; user.el --- personnal config, called by init.el
+
 ;; windows specific things
 (if (string-equal (getenv "OS") "Windows_NT")
     (progn (require 'server)
@@ -68,31 +70,36 @@
 (add-hook 'c-mode-hook #'my-flycheck-c-setup)
 (setq c-default-style "linux" c-basic-offset 2)
 
-(use-package clang-format
-  :ensure t
-  :init
-  (add-hook 'c++-mode-hook 'flycheck-mode)
-  :config
-  (add-hook 'c++-mode-hook
-            (function (lambda ()
-                        (add-hook 'before-save-hook
-                                  'clang-format-buffer nil t)))))
-
+;(use-package clang-format
+;  :ensure t
+;  :init
+;  (add-hook 'c++-mode-hook 'flycheck-mode)
+;  :config
+;  (add-hook 'c++-mode-hook
+;            (function (lambda ()
+;                        (add-hook 'before-save-hook
+;                                 'clang-format-buffer nil t)))))
+(setq-default flycheck-disabled-checkers '(haskell-ghc haskell-stack-ghc haskell-hlint))
 ;; haskell
-(use-package dante
+(use-package yasnippet
+  :ensure t)
+(use-package lsp-mode
   :ensure t
-  :after haskell-mode
-  :commands 'dante-mode
-  :init
-  (add-hook 'haskell-mode-hook 'dante-mode)
-  (add-hook 'haskell-mode-hook 'flycheck-mode)
-  :config
-  (use-package hlint-refactor
-    :ensure t
-    :init
-    (add-hook 'dante-mode-hook
-              '(lambda () (flycheck-add-next-checker 'haskell-dante
-                                                '(warning . haskell-hlint))))))
+  :hook (haskell-mode . lsp)
+  :commands lsp)
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode)
+(use-package lsp-haskell
+ :ensure t
+ :config
+ (setq lsp-haskell-server-path "haskell-language-server-wrapper")
+ (setq lsp-haskell-server-args'("-d"))
+ ;; Comment/uncomment this line to see interactions between lsp client/server.
+ ;;(setq lsp-log-io t)
+)
+
+
 
 ;; rust
 (use-package rust-mode
@@ -146,7 +153,7 @@
 
 (setq flymake-no-changes-timeout nil)
 (setq flymake-start-syntax-check-on-newline nil)
-(setq flycheck-check-syntax-automatically '(save mode-enabled))
+; (setq flycheck-check-syntax-automatically '(save mode-enabled))
 
 ;; keybinds
 (use-package evil
