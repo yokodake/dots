@@ -161,6 +161,7 @@ main = do
       , ("M-S-l", spawn "dm-tool switch-to-greeter")
       , ("M-<Return>", dwmpromote) -- Zoomswap dwm like
       , ("M-<Tab>", toggleWS)
+      , ("S-<Print>", spawn "scrot -s")
       -- Play / Pause media keys : "<XF86AudioPlay>"  "<XF86HomePage>"
       , ("<XF86AudioRaiseVolume>", spawn "volume_wrapper +")
       , ("<XF86AudioLowerVolume>", spawn "volume_wrapper -")
@@ -196,6 +197,7 @@ myManageHookFloat = composeAll
     , className =? "Thunar"           --> doCenterFloat
     , className =? "Websearch"        --> doCenterFloat
     , className =? "Pavucontrol"      --> doSideFloat NE
+    , className =? "Qemu-system-x86_64"--> doSideFloat NE
     , title     =? "urxvt_float"      --> doSideFloat SC
     , isFullscreen                    --> doFullFloat
     , isDialog                        --> doCenterFloat
