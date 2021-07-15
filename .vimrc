@@ -1,15 +1,15 @@
 " Maintainer: Mirko van der Waal <mvdw at airmail dot cc>
 "
-
-filetype plugin indent on
 syntax on
 
+filetype indent off
 set termencoding=utf-8 encoding=utf8
 set wmnu wim=list:longest,full wig=*.o,*~,*.pyc,*.tmp title titlestring=%t:%l%r%m
 set titlelen=24 undofile udir=~/.vim/undo,/tmp ul=1024 ur=1024 ss=5 ls=2 nowrap
-set lcs=extends:> nu nuw=1 sts=2 shiftwidth=2 ts=2 isk+=- si sta ai hid
+set lcs=extends:> nu nuw=1 isk+=- si sta ai hid
 set sc cc=80 spr sb nobk ignorecase hls magic noswapfile et tf lz
 set statusline=%{Github(branch,repository)}%L:%l%=%m[%{Filesize()}]
+set shiftwidth=2 ts=2 sts=2 expandtab
 
 " set tw=80 " line wrap
 
@@ -60,3 +60,4 @@ augroup __filtype
     au BufRead,BufNewFile *.h           setlocal ft=c
 augroup END
 
+filetype indent off

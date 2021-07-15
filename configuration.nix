@@ -50,6 +50,8 @@
     sshd.enable = true;
   };
 
+  # see: https://githubmemory.com/repo/divnix/devos/issues/296
+  documentation.info.enable = pkgs.lib.mkForce false;
   fonts = {
     fontconfig.enable = true;
     fontDir.enable = true;
@@ -100,23 +102,31 @@
     trustedBinaryCaches = [ "http://cache.nixos.org" ];
     binaryCaches = [ "http://cache.nixos.org" ];
     extraOptions = ''
-      experimental-features = nix-command flakes
+      experimental-features = nix-command flakes ca-references
     '';
   };
 
   programs.neovim = {
-    enable = true;
+    enable = false;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
     configure = {
-      customRC = builtins.readFile ./.vimrc;
+      customRC = ''
+      	set asdfkja aklsdjflkasj
+	askldfjasl
+	au aklsdjfalskd asjflajsklj
+      '';
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [ fugitive vim-nix ];
       };
     };
   };
 
+  environment.shellAliases = {
+    vi = "nvim";
+    vim = "nvim";
+  };
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -147,6 +157,7 @@
     kvm
     mpv
     networkmanager
+    neovim-unwrapped
     nitrogen
     nix-bash-completions
     ntfs3g
