@@ -79,34 +79,44 @@
 ;            (function (lambda ()
 ;                        (add-hook 'before-save-hook
 ;                                 'clang-format-buffer nil t)))))
-(setq-default flycheck-disabled-checkers '(haskell-ghc haskell-stack-ghc haskell-hlint))
-;; haskell
-(use-package yasnippet
-  :ensure t)
-(use-package lsp-mode
-  :ensure t
-  :hook (haskell-mode . lsp)
-  :commands lsp)
-(use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode)
-(use-package lsp-haskell
- :ensure t
- :config
- (setq lsp-haskell-server-path "haskell-language-server-wrapper")
- (setq lsp-haskell-server-args'("-d"))
- ;; Comment/uncomment this line to see interactions between lsp client/server.
- ;;(setq lsp-log-io t)
-)
-
-
+; (setq-default flycheck-disabled-checkers '(haskell-ghc haskell-stack-ghc haskell-hlint))
+; ;; haskell
+; (use-package yasnippet
+;   :ensure t)
+; (use-package lsp-mode
+;   :ensure t
+;   :hook (haskell-mode . lsp)
+;   :commands lsp)
+; (use-package lsp-ui
+;   :ensure t
+;   :commands lsp-ui-mode)
+; (use-package lsp-haskell
+;  :ensure t
+;  :config
+;  (setq lsp-haskell-server-path "haskell-language-server-wrapper")
+;  (setq lsp-haskell-server-args'("-d"))
+;  ;; Comment/uncomment this line to see interactions between lsp client/server.
+;  ;;(setq lsp-log-io t)
+; )
 
 ;; rust
-(use-package rust-mode
+(use-package rustic
   :ensure t
   :init
-  (add-hook 'rust-mode-hook (lambda () (setq indent-tabs-mode nil)))
+  :bind (:map rustic-mode-map
+              ("C-c C-c l" . flycheck-list-errors)
+              ("C-c C-c s" . lsp-rust-analyzer-status))
+  :config
+  (setq lsp-eldoc-hook nil)
+  (setq lsp-enable-symbol-highlighting nil)
+  (setq lsp-signature-auto-activate nil)
+
+  ; (setq rustic-format-on-save nil)
+  ; (add-hook 'rustic-mode-hook 'rk/rustic-mode-hook)
   )
+(defun rk/rustic-mode-hook ()
+  (setq-local buffer-save-without-query t))
+
 
 ;; ocaml
 (setq ngyj/merlin-site-elisp (getenv "MERLIN_SITE_LISP"))
