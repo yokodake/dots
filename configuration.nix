@@ -181,6 +181,7 @@
     wget
     which
     wine
+    xclip
     xlibs.xsetroot
     xscreensaver
     zip
