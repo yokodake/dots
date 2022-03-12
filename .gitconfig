@@ -6,7 +6,10 @@ email = yokodake@cinnabar.fr
 [alias]
 change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch -f --env-filter \"if [ \\\"$`echo $VAR`\\\" = '$OLD' ]; then export $VAR='$NEW'; fi\" $@; }; f "
 
-lg="log --graph --color --pretty=\"format:%h %an %Cblue%ae%Creset %Cgreen%s%Creset\""
+olg="log --graph --color --pretty=\"format:%h %an %Cblue%ae%Creset %Cgreen%s%Creset\""
+lg = log --first-parent --color --date=short --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit
+lgt = log --graph --color --date=short --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit
+lga = log --graph --color --all --date=short --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit
 
 cm="commit"
 br="branch"
